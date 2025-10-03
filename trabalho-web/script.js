@@ -5,7 +5,7 @@
 
     // ======= Dados de exemplo =======
     const produtos = [
-      { id: 'ntb-01', nome: 'Notebook Pro 15" i7 16GB 512GB SSD', preco: 5499.90, antigo: 5999.90, rating: 4.8, categoria: 'notebooks', "imagem": "imagens/notebook.jpg" },
+      { id: 'ntb-01', nome: 'Notebook Pro 15" i7 16GB 512GB SSD', preco: 5499.90, antigo: 5999.90, rating: 4.8, categoria: 'notebooks', 'imagem': 'C:\Users\Seu Pc\Documents\trabalho-web\img\Notebook_Pro.jpg' },
       { id: 'smr-01', nome: 'Smartphone XZ 256GB 5G', preco: 2999.00, antigo: 3499.00, rating: 4.6, categoria: 'smartphones' },
       { id: 'hed-01', nome: 'Headset Gamer 7.1 Surround', preco: 349.90, antigo: 499.90, rating: 4.7, categoria: 'perifericos' },
       { id: 'ssd-01', nome: 'SSD NVMe 1TB Gen4', preco: 499.90, antigo: 699.90, rating: 4.9, categoria: 'armazenamento' },
@@ -15,6 +15,7 @@
       { id: 'kb-01', nome: 'Teclado Mecânico RGB', preco: 299.90, antigo: 399.90, rating: 4.6, categoria: 'perifericos' },
     ];
 
+    
     // ======= Utilitários =======
     const R$ = (n) => n.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 
@@ -22,10 +23,9 @@
     const grid = document.getElementById('prod-grid');
     function iconeProduto(){
       return `<svg width="120" height="80" viewBox="0 0 120 80" xmlns="http://www.w3.org/2000/svg">
-        <defs><linearGradient id="p" x1="0" x2="1"><stop offset="0%" stop-color="#7c3aed"/><stop offset="100%" stop-color="#6ee7f9"/></linearGradient></defs>
-        <rect x="6" y="10" width="108" height="60" rx="10" fill="url(#p)" opacity=".18" stroke="rgba(255,255,255,.25)"/>
-        <rect x="12" y="16" width="96" height="36" rx="8" fill="url(#p)" opacity=".35"/>
-        <rect x="40" y="56" width="40" height="6" rx="3" fill="rgba(255,255,255,.6)"/>
+       
+        
+        
       </svg>`;
     }
 

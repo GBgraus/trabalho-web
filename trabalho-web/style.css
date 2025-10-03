@@ -13,7 +13,11 @@
       --radius: 18px;
     }
     *{box-sizing:border-box}
-    html,body{margin:0;height:100%;background:radial-gradient(1200px 800px at 80% -10%, rgba(124,58,237,.25), transparent 60%), linear-gradient(180deg, #0b1220 0%, #0b1220 60%, #0a1326 100%);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+    html,body{ margin:0;
+  height:100%;
+  background:#ffffff; /* <-- fundo branco no site */
+  color:var(--text);
+  font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
     a{color:inherit;text-decoration:none}
     img{max-width:100%;display:block}
     .container{max-width:1200px;margin:0 auto;padding:0 20px}
@@ -107,3 +111,18 @@
     @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
     .btn:hover{transform:translateY(-1px);box-shadow:0 8px 20px rgba(0,0,0,.25)}
     .card:hover{transform:translateY(-3px);transition:.2s}
+
+    /* Blocos principais com fundo sólido escuro */
+.card,
+.service,
+.drawer,
+.produto-card,
+.hero-card,
+header,
+footer {
+  background: var(--card);   /* cor sólida definida no :root (#10182b) */
+  color: #e6ebf5;            /* mantém texto claro dentro deles */
+}
+h2{
+ color: rgba(16,24,43,.75);
+}
