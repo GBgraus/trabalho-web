@@ -63,16 +63,52 @@
     .actions{display:flex;gap:8px;margin-top:auto}
 
     /* Services */
-    .service-list{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-    .service{padding:16px;border-radius:var(--radius);border:1px dashed rgb(255, 255, 255);background:rgb(255, 255, 255)}
+
+    .service-list{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:16px
+    }
+    .service{
+      padding:16px;
+      border-radius:var(--radius);
+      border:1px dashed rgb(255, 255, 255);
+      background:rgb(255, 255, 255);
+    }
 
     /* Booking */
-    .booking{display:grid;grid-template-columns: 1fr 1fr;gap:20px}
-    form .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    label{font-size:12px;color:var(--muted);display:block;margin-bottom:6px}
-    input, select, textarea{width:100%;padding:12px;border-radius:12px;border:1px solid rgb(255, 255, 255);background:rgb(255, 255, 255);color:var(--text)}
-    textarea{min-height:90px}
-    .note{font-size:12px;color:var(--muted)}
+
+    .booking{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:20px
+    }
+    form .row{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px
+    }
+    label{
+      font-size:12px;
+      color:var(--muted);
+      display:block;
+      margin-bottom:6px
+    }
+    input, select, textarea{
+      width:100%;
+      padding:12px;
+      border-radius:12px;
+      border:1px solid rgb(214, 214, 214);
+      background:rgb(255, 255, 255);
+      color: #818181;  
+    }
+
+    textarea{
+      min-height:90px
+    }
+    .note{
+      font-size:12px;color:var(--muted)
+    }
 
     /* Drawer Cart */
     .cart-toggle{position:relative}
@@ -85,6 +121,7 @@
     .cart-item .meta{flex:1}
     .totals{margin-top:auto;padding:14px;border-top:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;align-items:center}
     .btn-limpar{background:linear-gradient(180deg, rgba(59, 59, 59, 0.479), rgba(59, 59, 59, 0.479));}
+    
     /* Dashboards */
     .board{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 
@@ -127,7 +164,7 @@ h2{
  color: rgba(16,24,43,.75);
 }
 
-.price{color: #6ee7f9;}
+.price{color: #7364ec;}
 
 .produto {
   width: 250px;
@@ -149,4 +186,14 @@ h2{
   height: 200px;
   object-fit: cover;   /* corta a imagem sem distorcer */
   border-radius: 10px;
+}
+
+.service{
+  background:rgb(255, 255, 255);
+  color: black;
+}
+
+/*Botões*/
+.actions .btn {
+  color: black;
 }

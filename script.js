@@ -48,8 +48,8 @@
             <span class="old-price">${R$(p.antigo)}</span>
           </div>
           <div class="actions">
-            <button class="btn" style="background: #6ee7f9; color: rgba(16,24,43,.75);" onclick='addCarrinho(${JSON.stringify(p.id)})'>Adicionar</button>
-            <button class="btn" style="background: #6ee7f9; color: rgba(16,24,43,.75);" onclick='comprarAgora(${JSON.stringify(p.id)})'>Comprar</button>
+            <button class="btn" style="background: #7364ec; color: rgba(16,24,43,.75);" onclick='addCarrinho(${JSON.stringify(p.id)})'>Adicionar</button>
+            <button class="btn" style="background: #7364ec; color: rgba(16,24,43,.75);" onclick='comprarAgora(${JSON.stringify(p.id)})'>Comprar</button>
           </div>
         </div>`;
       return el;
