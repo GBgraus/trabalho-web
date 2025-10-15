@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Loja Tech — Eletrônicos & Informática + Assistência Técnica</title>
+  <meta name="description" content="Loja de eletrônicos e informática com carrinho, checkout, agendamentos e painel admin (demo em HTML/JS com localStorage), conectada ao login."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container nav">
+      <a href="#" class="brand" aria-label="Página inicial">
+        <span class="brand-logo" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z" stroke="white" stroke-width="1.5" />
+            <path d="M7 8l5 2.8 5-2.8" stroke="white" stroke-opacity=".6"/>
+          </svg>
+        </span>
+        <span>Loja Tech</span>
+      </a>
+      <div class="search" role="search">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M21 21l-4.3-4.3" stroke="white" stroke-opacity=".6" stroke-width="1.6" stroke-linecap="round"/>
+          <circle cx="11" cy="11" r="7" stroke="white" stroke-opacity=".6" stroke-width="1.6"/>
+        </svg>
+        <label class="sr-only" for="busca">Buscar produtos</label>
+        <input id="busca" placeholder="Buscar produtos... (ex: notebook, SSD, headset)" />
+      </div>
+      <div class="nav-actions">
+        <button class="btn" id="btn-categorias"><span>Categorias</span></button>
+        <button class="btn" id="btn-servicos"><span>Serviços</span></button>
+        <button class="btn" id="btn-perfil" style="display:none"><span>Meu Perfil</span></button>
+        <button class="btn" id="btn-admin" style="display:none"><span>Admin</span></button>
+        <a href="Login.html"><button class="btn" id="btn-sair"><span>Sair</span></button></a>
+        <button class="btn btn-primary cart-toggle" id="btn-carrinho" aria-haspopup="dialog" aria-controls="drawer-carrinho">
+          Carrinho <span class="cart-count" id="cart-count">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero container">
+    <div class="hero-inner">
+      <div class="hero-card fade-in">
+        <div class="pill">Frete grátis acima de R$ 399 • 10x sem juros</div>
+        <h1>Eletrônicos & Informática com <span style="background:linear-gradient(90deg,var(--primary),var(--primary-2));-webkit-background-clip:text;background-clip:text;color:transparent">atendimento técnico</span> especializado</h1>
+        <p>Compre os melhores produtos e agende reparos, upgrades e formatações com horário marcado.</p>
+        <div class="badges">
+          <span class="pill">Garantia de 1 ano</span>
+          <span class="pill">Retirada na loja</span>
+          <span class="pill">Assistência autorizada</span>
+        </div>
+      </div>
+      <div class="hero-card fade-in" style="display:grid;place-items:center">
+        
+          
+          <img src='C:\Users\Seu Pc\Documents\trabalho-web\img\logo2.png' width="165" height="165">
+        
+        <div class="note">Loja Tech</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Categorias -->
+  <section class="section container" id="categorias">
+    <h2>Categorias</h2>
+    <div style="display:flex;flex-wrap:wrap;gap:10px" id="botoes-categorias">
+      <button class="btn btn-category" data-cat="todos"><span>Todos</span></button>
+      <button class="btn btn-category" data-cat="notebooks"><span>Notebooks</span></button>
+      <button class="btn btn-category" data-cat="smartphones"><span>Smartphones</span></button>
+      <button class="btn btn-category" data-cat="perifericos"><span>Periféricos</span></button>
+      <button class="btn btn-category" data-cat="armazenamento"><span>Armazenamento</span></button>
+      <button class="btn btn-category" data-cat="redes"><span>Redes</span></button>
+    </div>
+  </section>
+
+  <!-- Produtos -->
+  <section class="section container" id="produtos">
+    <h2>Produtos em destaque</h2>
+    <div class="grid" id="prod-grid"></div>
+  </section>
+
+  <!-- Serviços de Assistência Técnica -->
+  <section class="section container" id="servicos">
+    <h2>Assistência técnica</h2>
+    <div class="service-list">
+      <article class="service"><h3>Troca de tela</h3><p class="note">Peças originais e garantia</p></article>
+      <article class="service"><h3>Upgrade de desempenho</h3><p class="note">SSD, RAM e otimizações</p></article>
+      <article class="service"><h3>Formatação & Backup</h3><p class="note">Migração de dados e antivírus</p></article>
+      <article class="service"><h3>Remoção de vírus</h3><p class="note">Limpeza e proteção</p></article>
+      <article class="service"><h3>Instalação de software</h3><p class="note">Sistemas e drivers</p></article>
+      <article class="service"><h3>Manutenção preventiva</h3><p class="note">Limpeza e testes</p></article>
+    </div>
+  </section>
+
+  <!-- Agendamento -->
+  <section class="section container" id="agendamento">
+    <h2>Agende seu horário</h2>
+    <div class="booking">
+      <form id="form-agendamento" class="card" autocomplete="on">
+        <div class="card-content">
+          <div class="row">
+            <div>
+              <label for="tipo-servico">Serviço</label>
+              <select id="tipo-servico" required>
+                <option value="" disabled selected>Selecione</option>
+                <option>Troca de tela</option>
+                <option>Upgrade de SSD/RAM</option>
+                <option>Formatação & Backup</option>
+                <option>Remoção de vírus</option>
+                <option>Instalação de software</option>
+                <option>Manutenção preventiva</option>
+                <option>Diagnóstico geral</option>
+              </select>
+            </div>
+            <div>
+              <label for="dispositivo">Dispositivo</label>
+              <input id="dispositivo" placeholder="Ex: Notebook Lenovo, iPhone 13" required />
+            </div>
+          </div>
+          <div class="row">
+            <div>
+              <label for="data">Data</label>
+              <input type="date" id="data" required />
+            </div>
+            <div>
+              <label for="hora">Hora</label>
+              <input type="time" id="hora" required />
+            </div>
+          </div>
+          <div class="row">
+            <div>
+              <label for="nome">Nome</label>
+              <input id="nome" autocomplete="name" required />
+            </div>
+            <div>
+              <label for="email">E-mail</label>
+              <input type="email" id="email" autocomplete="email" required />
+            </div>
+          </div>
+          <div>
+            <label for="telefone">Telefone</label>
+            <input id="telefone" placeholder="(xx) xxxxx-xxxx" autocomplete="tel" />
+          </div>
+          <div>
+            <label for="detalhes">Detalhes (opcional)</label>
+            <textarea id="detalhes" placeholder="Descreva o problema"></textarea>
+          </div>
+          <div class="note">Horários úteis: seg–sex 09:00–18:00. Não atendemos aos domingos.</div>
+          <div class="actions">
+            <button type="submit" class="btn btn-primary"><span>Confirmar agendamento</span></button>
+            <button type="reset" class="btn"><span>Limpar</span></button>
+          </div>
+        </div>
+      </form>
+      <div class="card">
+        <div class="card-content">
+          <h3>Seus próximos agendamentos</h3>
+          <div id="lista-agendamentos" class="note">Nenhum agendamento ainda.</div>
+          <div class="actions" style="margin-top:12px">
+            <button class="btn" id="btn-exportar"><span>Exportar (.ics)</span></button>
+            <button class="btn" id="btn-limpar-ag"><span>Limpar lista</span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Carrinho (drawer) -->
+  <aside class="drawer" id="drawer-carrinho" role="dialog" aria-label="Carrinho de compras" aria-modal="true">
+    <header class="nav">
+      <strong>Seu carrinho</strong>
+      <button style="background: rgba(59, 59, 59, 0.479);" class="btn" id="fechar-carrinho">Fechar</button>
+    </header>
+    <div class="items" id="cart-items" ></div>
+    <div class="totals" style="background: rgba(59, 59, 59, 0.479);">
+      <span>Total</span>
+      <strong id="cart-total">R$ 0,00</strong>
+    </div>
+    <div style="padding:14px;display:flex;gap:10px;">
+      <button style="background: rgba(59, 59, 59, 0.479);" class="btn" id="btn-limpar">Esvaziar</button>
+      <button style="background: rgba(59, 59, 59, 0.479);" class="btn" id="btn-checkout">Finalizar compra</button>
+    </div>
+  </aside>
+
+  <!-- Perfil (cliente) & Admin -->
+  <section class="section container" id="perfil" style="display:none">
+    <h2>Meu perfil</h2>
+    <div class="board">
+      <div class="card"><div class="card-content">
+        <h3>Minhas compras</h3>
+        <div id="minhas-compras" class="note">Nenhuma compra ainda.</div>
+      </div></div>
+      <div class="card"><div class="card-content">
+        <h3>Meus agendamentos</h3>
+        <div id="meus-agendamentos" class="note">Nenhum agendamento ainda.</div>
+      </div></div>
+    </div>
+  </section>
+
+  <section class="section container" id="admin" style="display:none">
+    <h2>Painel do administrador</h2>
+    <div class="board">
+      <div class="card"><div class="card-content">
+        <h3>Todos os agendamentos</h3>
+        <div id="admin-agendamentos" class="note">Nenhum agendamento.</div>
+      </div></div>
+      <div class="card"><div class="card-content">
+        <h3>Todas as compras</h3>
+        <div id="admin-compras" class="note">Nenhuma compra.</div>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="grid">
+        <div class="col-6">
+          <strong>Loja Tech</strong>
+          <div class="note">CNPJ 00.000.000/0001-00 • Rua Exemplo, 123 — Centro</div>
+          <div class="note">Atendimento: seg–sex 09:00–18:00, sáb 09:00–13:00</div>
+        </div>
+        <div class="col-6" style="text-align:right">
+          <div class="note">© <span id="ano"></span> Loja Tech — Todos os direitos reservados</div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="script.js"></script>
+  
+</body>
+</html>
+
