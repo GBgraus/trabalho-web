@@ -6,13 +6,13 @@
     // ======= Dados de exemplo =======
     const produtos = [
       { id: 'ntb-01', nome: 'Notebook Pro 15" i7 16GB 512GB SSD', preco: 5499.90, antigo: 5999.90, rating: 4.8, categoria: 'notebooks', imagem:'img/Notebook_Pro.jpg' },
-      { id: 'smr-01', nome: 'Smartphone XZ 256GB 5G', preco: 2999.00, antigo: 3499.00, rating: 4.6, categoria: 'smartphones', imagem:'img/smartphoneXZ.jpg' },
-      { id: 'hed-01', nome: 'Headset Gamer 7.1 Surround', preco: 349.90, antigo: 499.90, rating: 4.7, categoria: 'perifericos', imagem:'img/headset.jpg' },
-      { id: 'ssd-01', nome: 'SSD NVMe 1TB Gen4', preco: 499.90, antigo: 699.90, rating: 4.9, categoria: 'armazenamento', imagem:'img/ssd.jpg' },
-      { id: 'rtr-01', nome: 'Roteador Wi‑Fi 6 AX3000', preco: 599.00, antigo: 799.00, rating: 4.5, categoria: 'redes', imagem:'img/roteador.jpg' },
-      { id: 'mnr-01', nome: 'Monitor 27" QHD 165Hz', preco: 1899.00, antigo: 2199.00, rating: 4.7, categoria: 'perifericos', imagem:'img/monitor.jpg' },
-      { id: 'mou-01', nome: 'Mouse Sem Fio Ergonomico', preco: 149.90, antigo: 199.90, rating: 4.4, categoria: 'perifericos', imagem:'img/mouse.jpg' },
-      { id: 'kb-01', nome: 'Teclado Mecânico RGB', preco: 299.90, antigo: 399.90, rating: 4.6, categoria: 'perifericos', imagem:'img/teclado.jpg' },
+      { id: 'smr-01', nome: 'Smartphone XZ <br> 256GB 5G', preco: 2999.00, antigo: 3499.00, rating: 4.6, categoria: 'smartphones', imagem:'img/smartphoneXZ.jpg' },
+      { id: 'hed-01', nome: 'Headset Gamer <br> 7.1 Surround', preco: 349.90, antigo: 499.90, rating: 4.7, categoria: 'perifericos', imagem:'img/headset.jpg' },
+      { id: 'ssd-01', nome: 'SSD NVMe <br> 1TB Gen4', preco: 499.90, antigo: 699.90, rating: 4.9, categoria: 'armazenamento', imagem:'img/ssd.jpg' },
+      { id: 'rtr-01', nome: 'Roteador Wi‑Fi <br> 6 AX3000', preco: 599.00, antigo: 799.00, rating: 4.5, categoria: 'redes', imagem:'img/roteador.jpg' },
+      { id: 'mnr-01', nome: 'Monitor 27 <br>QHD 165Hz', preco: 1899.00, antigo: 2199.00, rating: 4.7, categoria: 'perifericos', imagem:'img/monitor.jpg' },
+      { id: 'mou-01', nome: 'Mouse Sem Fio<br> Ergonomico', preco: 149.90, antigo: 199.90, rating: 4.4, categoria: 'perifericos', imagem:'img/mouse.jpg' },
+      { id: 'kb-01', nome: 'Teclado Mecânico<br> RGB', preco: 299.90, antigo: 399.90, rating: 4.6, categoria: 'perifericos', imagem:'img/teclado.jpg' },
     ];
 
     // ======= Utilitários =======
@@ -35,7 +35,7 @@
       el.dataset.nome = p.nome.toLowerCase();
       el.dataset.categoria = p.categoria;
       el.innerHTML = `
-        <div class="card-media">${iconeProduto()}</div>
+        
         <div class="card-content">
           <img src='${p.imagem||'img'}' alt='Imagem de ${p.nome}'>
           <class="produto-imagem">
@@ -44,10 +44,12 @@
             <strong>${p.nome}</strong>
             <span class="rating" aria-label="${p.rating} de 5">★ ${p.rating}</span>
           </div>
+         
           <div>
             <span class="price" >${R$(p.preco)}</span>
             <span class="old-price">${R$(p.antigo)}</span>
           </div>
+          <br>
           <div class="actions">
             <button class="btn" style="background: #7364ec; color: rgba(255, 255, 255, 1);" onclick='addCarrinho(${JSON.stringify(p.id)})'>Adicionar</button>
             <button class="btn" style="background: #7364ec; color: rgba(255, 255, 255, 1);" onclick='comprarAgora(${JSON.stringify(p.id)})'>Comprar</button>
