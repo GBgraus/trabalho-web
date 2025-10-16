@@ -13,7 +13,7 @@ body {
 header {
   width: 100%;
   padding: 20px 40px;
-  background: #10182bbf;
+  background: #10182b;
   color: #fff;
   margin-bottom: 40px; 
   box-sizing: border-box;
@@ -27,6 +27,23 @@ header .grid {
 
 header .col-6 {
   flex: 0 0 auto;
+}
+
+.brand{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: inherit;
+}
+.brand-logo{
+  width: 40px;  
+  height: 40px;
+  object-fit: contain;
+  border-radius: 8px;
+}
+.brand-logo svg{
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,.3))
 }
 
 .box { 
@@ -69,17 +86,20 @@ button:hover {
 }
 
 #btn-sobrenos{
+  display: inline-block;
   padding:10px 14px;
   border-radius:12px;
   border:1px solid rgba(255,255,255,.08);
-  background:rgba(255,255,255,.06);
-  color:var(--text);
+  background:rgba(255,255,255,.06) !important;
+  color:#fff;
   cursor:pointer;
   text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s ease;
 }
 
 #btn-sobrenos:hover {
-  background-color: #769bf0;
+  transform: scale(1.05);
   color: #fff;
 }
 
@@ -101,6 +121,6 @@ footer{
 }
 
 header, footer {
-  background: #10182bbf ;  
+  background: #10182b ;  
   color: #e6ebf5;          
 }
