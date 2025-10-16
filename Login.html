@@ -4,15 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Loja Tech - Login</title>
-  <style>
-    body { font-family: Arial, sans-serif; background:#0b1220; color:#fff; margin:0; display:flex; justify-content:center; align-items:center; height:100vh; }
-    .box { background:#1a2238; padding:30px; border-radius:10px; width:320px; }
-    h2 { text-align:center; margin-bottom:20px; }
-    input, select { width:100%; padding:10px; margin:8px 0; border-radius:6px; border:none; }
-    button { width:100%; padding:10px; background:#6ee7f9; border:none; border-radius:6px; cursor:pointer; font-weight:bold; }
-    button:hover { background:#4dd6e6; }
-    .toggle { text-align:center; margin-top:12px; cursor:pointer; color:#6ee7f9; }
-  </style>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <link rel="stylesheet" href="StyleLogin.css">
 </head>
 <body>
   <div class="box">
@@ -29,6 +22,17 @@
       <input id="nomeCadastro" placeholder="Nome">
       <input id="emailCadastro" placeholder="Email">
       <input id="senhaCadastro" type="password" placeholder="Senha">
+
+       <!-- login botão google -->
+
+      <div id="g_id_onload"
+     data-client_id="SEU_CLIENT_ID_AQUI"
+     data-context="signin"
+     data-callback="handleCredentialResponse"
+     data-auto_prompt="false">
+</div>
+
+<div class="g_id_signin" data-type="standard"></div>
       <select id="tipoUsuario">
         <option value="cliente">Cliente</option>
         <option value="admin">Administrador</option>
@@ -81,5 +85,28 @@
       }
     }
   </script>
+
+<script>
+  function handleCredentialResponse(response) {
+    console.log("Credencial do Google:", response.credential);
+    const user = parseJwt(response.credential);
+    console.log(user);
+    localStorage.setItem('usuarioLogado', JSON.stringify(user));
+    // Redirecionar após login
+    window.location.href = "Index.html";
+  }
+
+  function parseJwt(token) {
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+
+    return JSON.parse(jsonPayload);
+  }
+</script>
+
+
 </body>
 </html>

@@ -54,13 +54,47 @@
     .col-12{grid-column: span 12}
 
     /* Product Card */
-    .card{background:linear-gradient(180deg, rgb(255, 255, 255), rgb(255, 255, 255));border:1px solid rgb(255, 255, 255);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}
-    .card-media{padding:14px;display:grid;place-items:center;background: radial-gradient(500px 200px at 50% -40%, rgba(110,231,249,.25), transparent 60%);color:black}
-    .card-content{padding:16px;display:flex;flex-direction:column;gap:10px;color:black}
-    .price{font-weight:800;font-size:18px}
-    .old-price{color:var(--muted);text-decoration:line-through;font-weight:500;margin-left:8px}
-    .rating{font-size:12px;color:#fbbf24}
-    .actions{display:flex;gap:8px;margin-top:auto}
+
+    .card{
+      background:linear-gradient(180deg, rgb(255, 255, 255), rgb(255, 255, 255));
+      border:1px solid rgb(255, 255, 255);
+      border-radius:var(--radius);
+      overflow:hidden;
+      box-shadow:var(--shadow);
+      display:flex;
+      flex-direction:column}
+    .card-media{padding:14px;
+      display:grid;
+      place-items:center;
+      background: radial-gradient(500px 200px at 50% -40%, rgba(110,231,249,.25), transparent 60%);
+      color:black
+    }
+    .card-content{
+      padding:16px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      color:rgb(0, 0, 0)
+    }
+    .price{
+      font-weight:800; 
+      font-size:18px
+    }
+    .old-price{
+      color:var(--muted);
+      text-decoration:line-through;
+      font-weight:500;
+      margin-left:8px
+    }
+    .rating{
+      font-size:12px;
+      color:#fbbf24
+    }
+    .actions{
+      display:flex;
+      gap:8px;
+      margin-top:auto
+    }
 
     /* Services */
 
@@ -150,13 +184,9 @@
     .card:hover{transform:translateY(-3px);transition:.2s}
 
     /* Blocos principais com fundo sólido escuro */
-/*.card,
-.service,
-.drawer,
-.produto-card,
-.hero-card,*/
-header,
-footer {
+/*.card, .service, .drawer, .produto-card, .hero-card,*/
+
+header, footer {
   background: var(--card);   /* cor sólida definida no :root (#10182b) */
   color: #e6ebf5;            /* mantém texto claro dentro deles */
 }
