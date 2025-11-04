@@ -154,10 +154,11 @@
     function abrirCarrinho(){ drawer.classList.add('open'); }
     function fecharCarrinho(){ drawer.classList.remove('open'); }
 
+    document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('btn-carrinho').addEventListener('click', abrirCarrinho);
     document.getElementById('fechar-carrinho').addEventListener('click', fecharCarrinho);
     document.getElementById('btn-limpar').addEventListener('click', ()=>{ carrinho = []; atualizarCarrinho(); });
-
+    });
 
 
     function checkout(){
