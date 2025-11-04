@@ -51,7 +51,7 @@
           </div>
           <br>
           <div class="actions">
-            <button class="btn" style="background: #7364ec; color: rgba(255, 255, 255, 1);" onclick='addCarrinho(${JSON.stringify(p.id)})'>Adicionar</button>
+            <button class="btn" style="background: #7364ec; color: rgba(255, 255, 255, 1);" onclick='adicionarProduto(${JSON.stringify(p.id)})'>Adicionar</button>
             <button class="btn" style="background: #7364ec; color: rgba(255, 255, 255, 1);" onclick='comprarAgora(${JSON.stringify(p.id)})'>Comprar</button>
           </div>
         </div>`;
@@ -157,6 +157,8 @@
     document.getElementById('btn-carrinho').addEventListener('click', abrirCarrinho);
     document.getElementById('fechar-carrinho').addEventListener('click', fecharCarrinho);
     document.getElementById('btn-limpar').addEventListener('click', ()=>{ carrinho = []; atualizarCarrinho(); });
+
+
 
     function checkout(){
       if(!carrinho.length){ alert('Seu carrinho está vazio.'); return; }

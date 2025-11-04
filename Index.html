@@ -37,8 +37,7 @@
         <button class="btn" id="btn-perfil" style="display:none"><span>Meu Perfil</span></button>
         <button class="btn" id="btn-admin" style="display:none"><span>Admin</span></button>
         <a href="Login.html"><button class="btn" id="btn-sair"><span>Sair</span></button></a>
-        <button class="btn btn-primary cart-toggle" id="btn-carrinho" aria-haspopup="dialog" aria-controls="drawer-carrinho">
-          Carrinho <span class="cart-count" id="cart-count">0</span>
+        <a href="carrinho.html"><button class="btn btn-primary cart-toggle">Carrinho <span class="cart-count" id="cart-count">0</span></a>
         </button>
       </div>
     </div>
@@ -172,22 +171,34 @@
     </div>
   </section>
 
-  <!-- Carrinho (drawer) -->
-  <aside class="drawer" id="drawer-carrinho" role="dialog" aria-label="Carrinho de compras" aria-modal="true">
-    <header class="nav">
-      <strong>Seu carrinho</strong>
-      <button style="background: rgba(59, 59, 59, 0.479);" class="btn" id="fechar-carrinho">Fechar</button>
-    </header>
-    <div class="items" id="cart-items" ></div>
-    <div class="totals" style="background: rgba(59, 59, 59, 0.479);">
-      <span>Total</span>
-      <strong id="cart-total">R$ 0,00</strong>
-    </div>
-    <div style="padding:14px;display:flex;gap:10px;">
-      <button style="background: rgba(59, 59, 59, 0.479);" class="btn" id="btn-limpar">Esvaziar</button>
-      <button style="background: rgba(59, 59, 59, 0.479);" class="btn" id="btn-checkout">Finalizar compra</button>
-    </div>
-  </aside>
+<!-- Botão global para abrir o carrinho -->
+
+
+<!-- Carrinho (drawer) -->
+<aside class="drawer" id="drawer-carrinho" role="dialog" aria-label="Carrinho de compras" aria-modal="true">
+  <header class="nav">
+    <strong>🛍️ Seu carrinho</strong>
+    <button class="btn fechar" id="fechar-carrinho" aria-label="Fechar carrinho">×</button>
+  </header>
+
+  <!-- Itens -->
+  <div class="items" id="cart-items">
+    <p>Seu carrinho está vazio 🛒</p>
+  </div>
+
+  <!-- Totais -->
+  <div class="totals">
+    <span>Total:</span>
+    <strong id="cart-total">R$ 0,00</strong>
+  </div>
+
+  <!-- Ações -->
+  <div class="acoes">
+    <button class="btn limpar" id="btn-limpar">🧹 Esvaziar</button>
+    <button class="btn finalizar" id="btn-checkout">💳 Finalizar compra</button>
+  </div>
+</aside>
+
 
   <!-- Perfil (cliente) & Admin -->
   <section class="section container" id="perfil" style="display:none">
@@ -234,7 +245,7 @@
     </div>
   </footer>
   <script src="script.js"></script>
-  
+  <script src="carrinho.js"></script>
 </body>
 </html>
 

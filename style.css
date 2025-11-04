@@ -20,7 +20,7 @@
   font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
     a{color:inherit;text-decoration:none}
     img{max-width:100%;display:block}
-    .container{max-width:1200px;margin:0 auto;padding:0 20px}
+    .container{max-width:1200px;margin:0 auto;padding:0 20px;}
     /* Header */
     header{position:sticky;top:0;z-index:60;background:#10182bbf;backdrop-filter: blur(10px);border-bottom:1px solid rgba(255,255,255,.06)}
     .nav{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 0}
@@ -195,6 +195,7 @@ h2{
 }
 
 .price{color: #7364ec;}
+.p{color: black;}
 
 .produto {
   width: 250px;
@@ -225,5 +226,9 @@ h2{
 
 /*Botões*/
 .actions .btn {
+  color: black;
+}
+
+h3{
   color: black;
 }
