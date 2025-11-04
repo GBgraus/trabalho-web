@@ -14,7 +14,7 @@
   <!-- Header -->
   <header>
     <div class="container nav">
-      <a href="#" class="brand" aria-label="Página inicial">
+      <a href="Index.html" class="brand" aria-label="Página inicial">
         <span class="brand-logo" aria-hidden="true">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z" stroke="white" stroke-width="1.5" />
@@ -32,9 +32,9 @@
         <input id="busca" placeholder="Buscar produtos... (ex: notebook, SSD, headset)" />
       </div>
       <div class="nav-actions">
-        <button class="btn" ><a href="SobreNos.html"><span>Sobre nós</span></a></button>
-        <button class="btn" ><a href="servicos.html"><span>Serviços</span></a></button>
-        <button class="btn" ><span>Meu Perfil</span></button>
+        <a href="SobreNos.html"><button class="btn" id="btn-categorias"><span>Sobre nós</span></button></a>
+        <a href="servicos.html"><button class="btn" id="btn-servicos"><span>Serviços</span></button></a>
+        <button class="btn" id="btn-perfil" style="display:none"><span>Meu Perfil</span></button>
         <button class="btn" id="btn-admin" style="display:none"><span>Admin</span></button>
         <a href="Login.html"><button class="btn" id="btn-sair"><span>Sair</span></button></a>
         <button class="btn btn-primary cart-toggle" id="btn-carrinho" aria-haspopup="dialog" aria-controls="drawer-carrinho">
@@ -71,11 +71,11 @@
   <section class="section container" id="categorias">
     <h2>Categorias</h2>
     <div style="display:flex;flex-wrap:wrap;gap:10px" id="botoes-categorias">
-      <button class="btn btn-category" data-cat="todos"><span>Todos</span></button>
-      <button class="btn btn-category" data-cat="notebooks"><span>Notebooks</span></button>
-      <button class="btn btn-category" data-cat="smartphones"><span>Smartphones</span></button>
+      <button class="btn btn-category" span>Todos</span></button>
+      <button class="btn btn-category" data-cat="notebooks"><span>Notebooks e PCs</span></button>
+      <a href="produtosSmartphones.html"><button class="btn btn-category" data-cat="smartphones"><span>Smartphones</span></button></a>
       <button class="btn btn-category" data-cat="perifericos"><span>Periféricos</span></button>
-      <button class="btn btn-category" data-cat="armazenamento"><span>Armazenamento</span></button>
+      <button class="btn btn-category" data-cat="armazenamento"><span>Componentes</span></button>
       <button class="btn btn-category" data-cat="redes"><span>Redes</span></button>
     </div>
   </section>
