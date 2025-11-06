@@ -3,16 +3,30 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Meu Carrinho</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Loja Tech — Carrinho</title>
+  <meta name="description" content="Loja de eletrônicos e informática com carrinho, checkout, agendamentos e painel admin (demo em HTML/JS com localStorage), conectada ao login."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="StyleCarrinho.css">
 </head>
 <body>
   <header>
-    <h1>🛍️ Seu Carrinho</h1>
-    <a href="index.html" class="btn-voltar">← Continuar comprando</a>
+    <div class="container nav">
+  <a href="Index.html" class="brand" aria-label="Página inicial">
+    <span class="brand-logo" aria-hidden="true">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z" stroke="white" stroke-width="1.5" />
+        <path d="M7 8l5 2.8 5-2.8" stroke="white" stroke-opacity=".6"/>
+      </svg>
+    </span>
+
+    <span>Loja Tech</span>
+  </a>
     <a href="carrinho.html" class="btn-carrinho">
       Carrinho (<span id="cart-count">0</span>)
     </a>
+    </div>
   </header>
 
   <main>
@@ -21,8 +35,24 @@
       <h3>Total: <span id="cart-total">R$ 0,00</span></h3>
       <button id="btn-limpar">🧹 Esvaziar</button>
       <button id="btn-finalizar">💳 Finalizar Compra</button>
+      <button id="btn-voltar" onclick="window.location.href='Index.html'">👜 Continuar comprando</button>
     </div>
   </main>
+
+<footer>
+  <div class="container">
+    <div class="grid">
+      <div class="col-6">
+        <strong>Loja Tech</strong>
+        <div class="note">CNPJ 00.000.000/0001-00 • Rua Exemplo, 123 — Centro</div>
+        <div class="note">Atendimento: seg–sex 09:00–18:00, sáb 09:00–13:00</div>
+      </div>
+      <div class="col-6" style="text-align:right">
+        <div class="note">© <span id="ano"></span> Loja Tech — Todos os direitos reservados</div>
+      </div>
+    </div>
+  </div>
+</footer>
 
   <script src="carrinho.js"></script>
 </body>

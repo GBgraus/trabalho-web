@@ -12,7 +12,10 @@
       /*--shadow: 0 10px 30px rgb(255, 255, 255);*/
       --radius: 18px;
     }
-    *{box-sizing:border-box}
+    *{
+      box-sizing:border-box;
+    }
+
     html,body{ margin:0;
   height:100%;
   background:#e9e9e9; /* <-- fundo branco no site */
