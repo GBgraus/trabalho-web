@@ -148,3 +148,96 @@
 
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulação de Pagamento - Loja Tech</title>
+  <link rel="icon" href="" type="">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header>
+    <div class="container nav">
+      <a href="../index.html" class="brand">
+        <span class="brand-logo">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z" stroke="white" stroke-width="1.5" />
+            <path d="M7 8l5 2.8 5-2.8" stroke="white" stroke-opacity=".6"/>
+          </svg>
+        </span>
+        <span>Loja Tech</span>
+      </a>
+    </div>
+  </header>
+
+  <section class="pagamento-container">
+    <div class="pagamento-content">
+      <h2><i class="fas fa-shopping-cart"></i> Finalize sua Assinatura</h2>
+
+      <h3>Selecione a forma de pagamento:</h3>
+      <div class="opcoes-pagamento">
+        <div class="opcao-item active" data-metodo="pix">
+          <i class="fas fa-qrcode"></i>
+          <p>PIX</p>
+        </div>
+        <div class="opcao-item" data-metodo="credito">
+          <i class="fas fa-credit-card"></i>
+          <p>Cartão de Crédito</p>
+        </div>
+        <div class="opcao-item" data-metodo="debito">
+          <i class="far fa-credit-card"></i>
+          <p>Cartão de Débito</p>
+        </div>
+        <div class="opcao-item" data-metodo="paypal">
+          <i class="fab fa-paypal"></i>
+          <p>PayPal</p>
+        </div>
+
+
+      <div id="detalhes-pagamento">
+        <h3>Detalhes do Pagamento - PIX</h3>
+        <p>Escaneie o QR Code abaixo ou copie e cole a chave para finalizar o pagamento de R$ 149,00.</p>
+        <div style="text-align:center; margin: 20px 0;">
+          <img src="../img/placeholder_qrcode.png" alt="QR Code PIX" style="width:150px; height:150px; border:1px solid #ccc; border-radius:10px;">
+          <p style="margin-top: 10px; font-size: 0.9em; font-weight: 600;">Chave PIX: 123.456.789-00</p>
+        </div>
+      </div>
+
+      <button class="btn" style="width:100%; margin-top:30px;" onclick="alert('Pagamento simulado. Assinatura confirmada!')">
+        Confirmar Pagamento
+      </button>
+
+      <a href="../index.html" class="btn btn-voltar">Voltar para a página inicial</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="grid">
+        <div class="col-6">
+          <strong>Loja Tech</strong>
+          <div class="note">CNPJ 00.000.000/0001-00 • Rua Exemplo, 123 — Centro</div>
+          <div class="note">Atendimento: seg–sex 09:00–18:00, sáb 09:00–13:00</div>
+        </div>
+        <div class="col-6" style="text-align:right">
+          <div class="note">© <span id="ano"></span> Loja Tech — Todos os direitos reservados</div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.opcao-item').forEach(item => {
+      item.addEventListener('click', function() {
+        document.querySelectorAll('.opcao-item').forEach(i => i.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>
