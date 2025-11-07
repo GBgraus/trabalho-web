@@ -108,14 +108,9 @@ function limparCarrinho() {
   atualizarContadorCarrinho();
 }
 
-// Finalizar compra
-function finalizarCompra() {
-  const carrinho = getCarrinho();
-  if (carrinho.length === 0) return alert("Seu carrinho está vazio!");
 
-  alert("Compra finalizada com sucesso! 🎉");
-  limparCarrinho();
-}
+
+
 
 // Eventos dos botões (só se existirem na página)
 document.getElementById('btn-limpar')?.addEventListener('click', limparCarrinho);
