@@ -35,26 +35,22 @@ const PRODUCTS = [
     img:"../img/Iphone13.jpg",
     category:"Apple",
     desc:"O Apple iPhone 13 é um smartphone iOS avançado e abrangente em todos os pontos de vista com algumas características excelentes. Tem uma grande tela de 6.1 polegadas com uma resolução de 2532x1170 pixels. As funcionalidades oferecidas pelo Apple iPhone 13 são muitas e inovadoras. Começando pelo 5G que permite a transferência de dados e excelente navegação na internet. Enfatizamos a excelente memória interna de 512 GB mas sem a possibilidade de expansão. Respeitável a câmera de 12 megapixels que permite ao Apple iPhone 13 tirar fotos com uma resolução de 4000x3000 pixels e gravar vídeos em 4K a espantosa resolução de 3840x2160 pixels. Muito fino, 7.7 milímetros, o que torna o Apple iPhone 13 realmente interessante."},
+
+    { id: "p9", title: "Apple iPhone 13 Pro Max", price: 4089.00, oldPrice:4365.72, rating:4.0,
+    img:"../img/Iphone13ProMax.jpg",
+    category:"Apple",
+    desc:"O Apple iPhone 13 Pro Max é um smartphone iOS avançado e abrangente em todos os pontos de vista com algumas características excelentes. Tem uma grande tela de 6.7 polegadas com uma resolução de 2778x1284 pixels. As funcionalidades oferecidas pelo Apple iPhone 13 Pro Max são muitas e inovadoras. Começando pelo 5G que permite a transferência de dados e excelente navegação na internet. Enfatizamos a excelente memória interna de 1000 GB mas sem a possibilidade de expansão. Respeitável a câmera de 12 megapixels que permite ao Apple iPhone 13 Pro Max tirar fotos com uma resolução de 4000x3000 pixels e gravar vídeos em 4K a espantosa resolução de 3840x2160 pixels. Muito fino, 7.7 milímetros, o que torna o Apple iPhone 13 Pro Max realmente interessante."},
   
-    { id: "p9", title: "HD Externo 1TB", price: 380.00, oldPrice:null, rating:4.1,
-    img:"https://images.unsplash.com/photo-1585386959984-a4155220f5e9?q=80&w=800&auto=format&fit=crop",
-    category:"accessory",
-    desc:"HD portátil para backup e transporte de arquivos com conexão USB 3.0."},
+      
+    { id: "p10", title: "Galaxy Z Fold7", price: 9584.10, oldPrice:10649.00, rating:4.5,
+    img:"../img/GalaxyZFold7.jpg",
+    category:"Samsung",
+    desc:"O Samsung Galaxy Z Fold 7 é um tablet Android avançado e abrangente em todos os pontos de vista com algumas características excelentes. Tem uma grande tela de 8 polegadas e uma resolução de 2184x1968 pixels que é uma das mais altas atualmente em circulação. As funcionalidades oferecidas pelo Samsung Galaxy Z Fold 7 são muitas e inovadoras. Começando pelo 5G que permite a transferência de dados e excelente navegação na internet. Enfatizamos a excelente memória interna de 1024 GB mas sem a possibilidade de expansão. O Samsung Galaxy Z Fold 7 é um produto com poucos concorrentes em termos de multimídia graças à câmera de 200 megapixels que permite ao Samsung Galaxy Z Fold 7 tirar fotos fantásticas com uma resolução de 8165x6124 pixels e gravar vídeos em 8K a espantosa resolução de 7680x4320 pixels. A espessura de apenas 4.2 milímetros torna o Samsung Galaxy Z Fold 7 um dos telefones mais finos que existem."},
   
-    { id: "p10", title: "Webcam Full HD", price: 199.00, oldPrice:249.00, rating:4.0,
-    img:"https://images.unsplash.com/photo-1580894908361-5cc9e6b1c05b?q=80&w=800&auto=format&fit=crop",
-    category:"accessory",
-    desc:"Webcam Full HD com microfone integrado e correção de luz automática."},
-  
-    { id: "p11", title: "Caixa de Som Bluetooth", price: 249.00, oldPrice:299.00, rating:4.5,
-    img:"https://images.unsplash.com/photo-1518444020445-9f51d1b2b1bb?q=80&w=800&auto=format&fit=crop",
-    category:"audio",
-    desc:"Caixa de som portátil com som potente e conexão Bluetooth estável."},
-  
-    { id: "p12", title: "Carregador USB-C Rápido", price: 79.90, oldPrice:null, rating:4.2,
-    img:"https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=800&auto=format&fit=crop",
-    category:"accessory",
-    desc:"Carregador com suporte a PD para carregamento rápido de notebooks e celulares."}
+    { id: "p11", title: "Samsung Galaxy Z Flip7", price: 3499.03, oldPrice:3955.00, rating:4.2,
+    img:"../img/GalaxyZFlip7.jpg",
+    category:"Samsung",
+    desc:"O Samsung Galaxy Z Flip 7 é um smartphone Android de bom nível, ótimo para fotos, que pode satisfazer até o mais exigente dos usuários. Tem uma enorme tela Touchscreen de 6.9 polegadas com uma resolução de 2520x1080 pixel. Sobre as características deste Samsung Galaxy Z Flip 7 na verdade não falta nada. Começando pelo 5G que permite a transferência de dados e excelente navegação na internet, além de conectividade Wi-fi e GPS. Tem também leitor multimídia, videoconferência e bluetooth. Enfatizamos a boa memória interna de 512 GB mas sem a possibilidade de expansão. O Samsung Galaxy Z Flip 7 é um produto com poucos concorrentes em termos de multimídia graças à câmera de 50 megapixels que permite ao Samsung Galaxy Z Flip 7 tirar fotos fantásticas com uma resolução de 8165x6124 pixels e gravar vídeos em 4K a espantosa resolução de 3840x2160 pixels. Muito fino, 6.5 milímetros, o que torna o Samsung Galaxy Z Flip 7 realmente interessante."}
 ];
 
 /* Estado */
