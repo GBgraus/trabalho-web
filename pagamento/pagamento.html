@@ -12,22 +12,21 @@
 
 <body>
   <header>
-    <div class="container nav">
-      <a href="../index.html" class="brand">
-        <span class="brand-logo">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-            <path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z" stroke="white" stroke-width="1.5" />
-            <path d="M7 8l5 2.8 5-2.8" stroke="white" stroke-opacity=".6"/>
-          </svg>
-        </span>
-        <span>Loja Tech</span>
-      </a>
+    <div class="container">
+      <div class="grid">
+        <div class="col-6">
+          <a class="brand" href="../Index.html">
+            <img src="../img/logo.png" alt="Logo da Loja Tech" class="brand-logo">
+             <strong>Loja Tech</strong>
+          </a>
+        </div>
+      </div>
     </div>
   </header>
 
   <section class="pagamento-container">
     <div class="pagamento-content">
-      <h2><i class="fas fa-shopping-cart"></i> Finalize sua Assinatura</h2>
+      <h2><i class="fas fa-shopping-cart"></i> Finalize sua compra</h2>
 
       <h3>Selecione a forma de pagamento:</h3>
       <div class="opcoes-pagamento">
@@ -57,12 +56,15 @@
           <p style="margin-top: 10px; font-size: 0.9em; font-weight: 600;">Chave PIX: 123.456.789-00</p>
         </div>
       </div>
+      </div>
 
-      <button class="btn" style="width:100%; margin-top:30px;" onclick="alert('Pagamento simulado. Assinatura confirmada!')">
+      <div class="btn-config">
+      <button class="btn btn-confirmar" onclick="alert('Pagamento simulado. Compra confirmada!')">
         Confirmar Pagamento
       </button>
 
-      <a href="../index.html" class="btn btn-voltar">Voltar para a página inicial</a>
+      <button class="btn btn-voltar" onclick="window.location.href='../Index.html'">Voltar para a página inicial</button>
+      </div>
     </div>
   </section>
 
@@ -81,13 +83,68 @@
     </div>
   </footer>
 
-  <script>
-    document.querySelectorAll('.opcao-item').forEach(item => {
-      item.addEventListener('click', function() {
-        document.querySelectorAll('.opcao-item').forEach(i => i.classList.remove('active'));
-        this.classList.add('active');
-      });
-    });
-  </script>
+    <script>
+        // Função para simular a troca de formulários conforme a opção clicada
+        document.querySelectorAll('.opcao-item').forEach(item => {
+            item.addEventListener('click', function() {
+                // Remove 'active' de todos e adiciona no clicado
+                document.querySelectorAll('.opcao-item').forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
+
+                const metodo = this.getAttribute('data-metodo');
+                const detalhesDiv = document.getElementById('detalhes-pagamento');
+                let htmlContent = '';
+
+                // Simulação de conteúdo dinâmico
+                switch(metodo) {
+                    case 'pix':
+                        htmlContent = `
+                            <h3>Detalhes do Pagamento - PIX</h3>
+                            <p>Escaneie o QR Code abaixo ou copie e cole a chave para finalizar o pagamento de R$ 149,00.</p>
+                            <div style="text-align:center; margin: 20px 0;">
+                                <img src="placeholder_qrcode.png" alt="QR Code PIX" style="width: 150px; height: 150px; border: 1px solid #ddd;">
+                                <p style="margin-top: 10px; font-size: 0.9em; font-weight: 600;">Chave PIX: 123.456.789-00</p>
+                            </div>
+                        `;
+                        break;
+                    case 'credito':
+                    case 'debito':
+                        const tipo = metodo === 'credito' ? 'Crédito' : 'Débito';
+                        htmlContent = `
+                            <h3>Detalhes do Cartão de ${tipo}</h3>
+                            <div class="input-group-pag">
+                                <label for="numero-cartao">Número do Cartão</label>
+                                <input type="text" id="numero-cartao" placeholder="0000 0000 0000 0000">
+                            </div>
+                            <div class="input-group-pag">
+                                <label for="nome-cartao">Nome no Cartão</label>
+                                <input type="text" id="nome-cartao" placeholder="Nome Completo">
+                            </div>
+                            <div class="form-row">
+                                <div class="input-group-pag">
+                                    <label for="validade">Validade</label>
+                                    <input type="text" id="validade" placeholder="MM/AA">
+                                </div>
+                                <div class="input-group-pag">
+                                    <label for="cvv">CVV</label>
+                                    <input type="text" id="cvv" placeholder="123">
+                                </div>
+                            </div>
+                        `;
+                        break;
+                    case 'paypal':
+                        htmlContent = `
+                            <h3>Pagar com PayPal</h3>
+                            <p>Ao clicar em "Confirmar Pagamento", você será redirecionado para a página segura do PayPal para finalizar sua transação.</p>
+                            <img src="placeholder_paypal.png" alt="PayPal Logo" style="width: 150px; margin: 20px auto; display: block;">
+                        `;
+                        break;
+                }
+
+                detalhesDiv.innerHTML = htmlContent;
+            });
+        });
+    </script>
+
 </body>
 </html>
