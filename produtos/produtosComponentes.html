@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Loja - Produtos & Assistência</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="StyleProdSmartphone.css">
+
+</head>
+<body>
+
+
+<header>
+    
+    <div class="container nav">
+      <a href="..\Index.html" class="brand" aria-label="Página inicial">
+        <span class="brand-logo" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z" stroke="white" stroke-width="1.5" />
+            <path d="M7 8l5 2.8 5-2.8" stroke="white" stroke-opacity=".6"/>
+          </svg>
+        </span>
+        <span>Loja Tech</span>
+      </a>
+      </div>
+  <div class="search">
+    <input id="searchInput" placeholder="O que você busca? ex: SSD, Notebook, Mouse...">
+  </div>
+  <button class="cart-btn" id="openCartBtn">Carrinho <span class="cart-count" id="cartCount">0</span></button>
+</header>
+
+<main class="wrap">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="filter-title">Filtros</div>
+    <div style="margin-bottom:10px">
+      <strong>Categoria</strong>
+      <div id="categoryList" style="margin-top:8px"></div>
+    </div>
+    <div style="margin-bottom:10px">
+      <strong>Preço</strong>
+      <div class="price-range" style="margin-top:8px">
+        <input id="minPrice" placeholder="R$ min" type="number" />
+        <input id="maxPrice" placeholder="R$ max" type="number" />
+      </div>
+      <button style="margin-top:8px;padding:8px;width:100%;border-radius:8px;border:none;background:#eee;cursor:pointer" id="applyPrice">Aplicar</button>
+    </div>
+    <div style="margin-top:12px">
+      <strong>Ordenar</strong>
+      <select id="sortSelect" style="margin-top:8px;width:100%;padding:8px;border-radius:8px;border:1px solid #eee;background:#fafafa">
+        <option value="featured">Mais relevantes</option>
+        <option value="price-asc">Preço: menor</option>
+        <option value="price-desc">Preço: maior</option>
+      </select>
+    </div>
+  </aside>
+
+  <!-- GRID DE PRODUTOS -->
+  <section>
+    <h3 style="margin:0 0 12px">Mais vendidos</h3>
+    <div class="grid" id="productGrid"></div>
+  </section>
+
+  <!-- PAINEL DE DETALHES (LADO DIREITO) -->
+  <aside class="detail" id="detailPanel" aria-hidden="true">
+    <div style="text-align:center;color:var(--muted)">Clique em um produto para ver detalhes</div>
+  </aside>
+</main>
+
+<!-- CART MODAL (inicialmente hidden) -->
+<div id="cartModal" class="cart-modal" style="display:none">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+    <strong>Seu carrinho</strong>
+    <button id="closeCart" style="border:none;background:transparent;cursor:pointer">Fechar</button>
+  </div>
+  <div id="cartItems"></div>
+  <div id="cartFooter" style="margin-top:10px"></div>
+</div>
+
+
+
+<script src="scriptProdSmartphone.js"></script>

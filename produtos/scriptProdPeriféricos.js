@@ -1,53 +1,52 @@
 /* ======= JSON de produtos (amostrais) ======= */
 const PRODUCTS = [
-  { id: "p1", title: "Notebook Dell Inspiron I15-I1300-A30P", price: 2899.99, oldPrice:3369.84, rating:4.5,
-    img:"../img/NotebookDellInspiron.jpg",
-    category:"Dell",
-    desc:"O Dell Inspiron 15 é um modelo intermediário que oferece um bom equilíbrio entre desempenho e funcionalidades, ideal para estudos e produtividade diária. O modelo i15-i1300-A30P vem equipado com o processador Intel Core i5-1334U de 13ª geração, 8 GB de memória RAM DDR4 2666 MHz e um SSD de 512 GB. A placa de vídeo integrada é a Intel Iris Xe Graphics G7 (80 EUs). O sistema operacional é o Windows 11 Home."},
-    { id: "p2", title: "Notebook ASUS VivoBook Go 15", price: 2256.25, oldPrice:2717.64, rating:4.3,
-    img:"../img/NotebookASUSVivoBookGo15.jpg",
-    category:"Asus",
-    desc:"A família Vivobook, da fabricante ASUS, tem procurado inovar o segmento intermediário, e dessa vez trás os processadores AMD 7000 para sua série Go, preparados para atividades de lazer, trabalho e estudo. O modelo E1504FA-NJ836W vem equipado com o processador AMD Ryzen 5 7520U, 8 GB de RAM DDR5 5500 MHz e SSD de 512 GB. A GPU integrada é a competente Radeon 610M. O sistema operacional é o Windows 11 Home."},
-  { id: "p3", title: "Samsung Galaxy Book4 Intel® Core™ i5-1335U", price: 3419.10, oldPrice:3799.00, rating:4.8,
-    img:"../img/SamsungGalaxyBook4.jpg",
+  { id: "p1", title: "Redragon TECLADO MECANICO", price: 152.90, oldPrice:169.90, rating:4.5,
+    img:"../img/TecladoRedragon.jpg",
+    category:"Redragon",
+    desc:"Sobre este item: Plastico ABS-Layout compacto 60% para os gamers que procuram deixar o máximo de espaço possível sobre a mesa.- Iluminação RGB Redragon Chroma Mk.II individual por tecla trazendo mais brilho para seu setup.- Cabo USB Tipo C removível para maior praticidade durante o transporte.- Keycaps feitas com o método double shot injection resultando em legendas duradouras"
+    },
+    { id: "p2", title: "Mouse Gamer Redragon Cobra, Chroma RGB", price: 106.52, oldPrice:135.90, rating:4.8,
+    img:"../img/MouseRedragonCobra.jpg",
+    category:"Redragon",
+    desc:"Sobre este item: -Sensor PIXART PMW3325 (10000 DPI/20G/100ips). -Iluminação RGB Ajustável. -Sistema de Iluminação Chroma RGB. -Polling Rate de 1000hz. -7 Botões Programáveis."},
+  { id: "p3", title: "Kit Gamer mouse e teclado RGB Rainbow Ranger grafite ", price: 191.40, oldPrice:240.00, rating:4.7,
+    img:"../img/KitGamerRainbowRanger.jpg",
+    category:"Ranger",
+    desc:"Sobre este item: -É composto por um teclado Usb e teclas macias/confortáveis. O Teclado é padrão Brasileiro (ABNT2) com design moderno que inclui 12 teclas para utilização com o FN, com teclas em ABS e superfície em alumínio que oferecem maior resistência e acabamento. -O mouse deste modelo foi construído para destros e canhotos alcança até 6.400dpi oferecendo agilidade e precisão em rápidos movimentos. Possuem iluminação Rainbow, que confere um ar moderno e divertido, ideal para serem usados em ambientes com pouca iluminação. Funcionamento Plug and Play, não necessita de software para instalar, basta conectar o teclado à porta Usb."},
+  { id: "p4", title: "Mouse Gamer Philco 7 Botões Pms70 - 5000 DPI", price: 69.99, oldPrice:92.99, rating:4.3,
+    img:"../img/mouse-gamer-philco.png",
+    category:"Philco",
+    desc:"O Mouse Gamer Philco PMS70 é ideal para todos os tipos de jogos. Ele possui 7 botões e sensor optico de alta precisão. Ele conta também com um Software para configurar a quantidade de DPI. Além disso, o mouse tem iluminação RGB."},
+  { id: "p5", title: "AOC, Monitor 22” 120Hz", price: 449.00, oldPrice:499.00, rating:4.8,
+    img:"../img/AOCMonitor.jpg",
+    category:"AOC",
+    desc:"-Monitor AOC 22B35HM23, a porta de entrada para uma experiência gamer de alto nível. Com uma tela de 22 polegadas, ele é compacto e poderoso, ideal para qualquer setup. -Jogabilidade fluida com 120Hz de taxa de atualização (Overclock)."},
+  
+    { id: "p7", title: "Apple iPhone 14 Pro", price: 6049.00, oldPrice:6235.00, rating:4.2,
+    img:"../img/Iphone14ProMax.jpg",
+    category:"Apple",
+    desc:"O Apple iPhone 14 Pro Max é, sem dúvida, um dos smartphones iOS mais avançados e abrangentes disponíveis no mercado, graças ao seu rico equipamento e recursos multimídia avançados. Tem um grande display de 6.7 polegadas com uma resolução de 2796x1290 pixel. As funcionalidades oferecidas pelo Apple iPhone 14 Pro Max são muitas e inovadoras. Começando pelo 5G que permite a transferência de dados e excelente navegação na internet. Enfatizamos a excelente memória interna de 1000 GB mas sem a possibilidade de expansão. O Apple iPhone 14 Pro Max é um produto com poucos concorrentes em termos de multimídia graças à câmera de 48 megapixels que permite ao Apple iPhone 14 Pro Max tirar fotos fantásticas com uma resolução de 8000x6000 pixels e gravar vídeos em 4K a espantosa resolução de 3840x2160 pixels. A espessura de 7.9mm torna o Apple iPhone 14 Pro Max um dos telefones mais completos e finos.."},
+  
+    { id: "p8", title: "Apple iPhone 13", price: 2815.12, oldPrice:3199.00, rating:4.6,
+    img:"../img/Iphone13.jpg",
+    category:"Apple",
+    desc:"O Apple iPhone 13 é um smartphone iOS avançado e abrangente em todos os pontos de vista com algumas características excelentes. Tem uma grande tela de 6.1 polegadas com uma resolução de 2532x1170 pixels. As funcionalidades oferecidas pelo Apple iPhone 13 são muitas e inovadoras. Começando pelo 5G que permite a transferência de dados e excelente navegação na internet. Enfatizamos a excelente memória interna de 512 GB mas sem a possibilidade de expansão. Respeitável a câmera de 12 megapixels que permite ao Apple iPhone 13 tirar fotos com uma resolução de 4000x3000 pixels e gravar vídeos em 4K a espantosa resolução de 3840x2160 pixels. Muito fino, 7.7 milímetros, o que torna o Apple iPhone 13 realmente interessante."},
+
+    { id: "p9", title: "Apple iPhone 13 Pro Max", price: 4089.00, oldPrice:4365.72, rating:4.0,
+    img:"../img/Iphone13ProMax.jpg",
+    category:"Apple",
+    desc:"O Apple iPhone 13 Pro Max é um smartphone iOS avançado e abrangente em todos os pontos de vista com algumas características excelentes. Tem uma grande tela de 6.7 polegadas com uma resolução de 2778x1284 pixels. As funcionalidades oferecidas pelo Apple iPhone 13 Pro Max são muitas e inovadoras. Começando pelo 5G que permite a transferência de dados e excelente navegação na internet. Enfatizamos a excelente memória interna de 1000 GB mas sem a possibilidade de expansão. Respeitável a câmera de 12 megapixels que permite ao Apple iPhone 13 Pro Max tirar fotos com uma resolução de 4000x3000 pixels e gravar vídeos em 4K a espantosa resolução de 3840x2160 pixels. Muito fino, 7.7 milímetros, o que torna o Apple iPhone 13 Pro Max realmente interessante."},
+  
+      
+    { id: "p10", title: "Galaxy Z Fold7", price: 9584.10, oldPrice:10649.00, rating:4.5,
+    img:"../img/GalaxyZFold7.jpg",
     category:"Samsung",
-    desc:"É um notebook voltado para produtividade e uso diário, com um corpo de metal leve e design fino. Ele possui tela Full HD de 15,6 polegadas, gráficos Intel® Iris® Xe, memória de 8 GB e SSD de 256 GB ou 512 GB, dependendo da configuração. O aparelho vem com Windows 11 e oferece um conjunto completo de portas, incluindo HDMI, USB-A e USB-C."},
-  { id: "p4", title: "Notebook Positivo Vision R15 Lumina Bar", price: 2222.05, oldPrice:2339.00, rating:5.0,
-    img:"../img/NotebookPositivoVisionR15.jpg",
-    category:"Positivo",
-    desc:"O Positivo Vision R15 Lumina Bar é um notebook com processador AMD Ryzen, tela Full HD IPS antirreflexo e o diferencial da Lumina Bar uma iluminação LED ao redor da webcam que melhora a qualidade de vídeo em chamadas. Ele é indicado para tarefas de trabalho e estudos, com bom desempenho para multitarefas básicas e moderadas. Suas especificações variam, mas incluem 8GB ou 16GB de RAM, 256GB ou 512GB de SSD, sistema operacional Linux (Debian) ou Windows 11, e teclado ABNT com teclado numérico."},
-  { id: "p5", title: "Notebook Lenovo IdeaPad Slim 3", price: 2849.05, oldPrice:2999.00, rating:5.0,
-    img:"../img/Notebook_Pro.jpg",
-    category:"Lenovo",
-    desc:"A linha Lenovo IdeaPad Slim 3i combina desempenho sólido e portabilidade, oferecendo notebooks intermediários para produtividade e entretenimento. O modelo 83NS0001BR vem equipado com o processador Intel Core i5-13420H, 16 GB de memória DDR5 de 4800 MHz e um SSD de 512 GB para o armazenamento. A GPU integrada é a modesta Intel UHD Graphics Xe G4 (48 EUs). O sistema operacional instalado é o Windows 11 Home."},
-  { id: "p6", title: "Notebook Acer Aspire GO 15 AG15-71P-53R6 Intel®", price: 3099.00, oldPrice:3500.00, rating:4.6,
-    img:"../img/NotebookAcerAspireGO15.jpg",
-    category:"Acer",
-    desc:"O Acer Aspire Go 15 é uma boa alternativa para quem busca desempenho eficiente, tela ampla e preço acessível em um notebook moderno. O modelo AG15-71P-53R6 vem equipado com o processador Intel Core i5-13420H da 13ª geração, 16 GB de memória RAM DDR5 5200 MHz e SSD NVMe de 512 GB para o armazenamento de dados. A GPU integrada é a Intel UHD Graphics Xe G4 (48 EUs). O sistema operacional é o Windows 11 Home."},
-  { id: "p7", title: "Notebook Samsung Galaxy Chromebook Go", price: 2139.33, oldPrice:2400.65, rating:4.2,
-    img:"../img/NotebookSamsungGalaxyChromebookGo.jpg",
+    desc:"O Samsung Galaxy Z Fold 7 é um tablet Android avançado e abrangente em todos os pontos de vista com algumas características excelentes. Tem uma grande tela de 8 polegadas e uma resolução de 2184x1968 pixels que é uma das mais altas atualmente em circulação. As funcionalidades oferecidas pelo Samsung Galaxy Z Fold 7 são muitas e inovadoras. Começando pelo 5G que permite a transferência de dados e excelente navegação na internet. Enfatizamos a excelente memória interna de 1024 GB mas sem a possibilidade de expansão. O Samsung Galaxy Z Fold 7 é um produto com poucos concorrentes em termos de multimídia graças à câmera de 200 megapixels que permite ao Samsung Galaxy Z Fold 7 tirar fotos fantásticas com uma resolução de 8165x6124 pixels e gravar vídeos em 8K a espantosa resolução de 7680x4320 pixels. A espessura de apenas 4.2 milímetros torna o Samsung Galaxy Z Fold 7 um dos telefones mais finos que existem."},
+  
+    { id: "p11", title: "Samsung Galaxy Z Flip7", price: 3499.03, oldPrice:3955.00, rating:4.2,
+    img:"../img/GalaxyZFlip7.jpg",
     category:"Samsung",
-    desc:"O Samsung Galaxy Chromebook Go é um laptop leve e durável, com sistema operacional Chrome OS, ideal para estudantes. Ele é equipado com processador Intel Celeron N4500, 4 GB de RAM e 64 GB de armazenamento interno. Possui tela HD antirreflexo, bateria de longa duração e conectividade via USB-C."},
-  { id: "p8", title: "Pc Gamer Ryzen 5 completo", price: 2890.00, oldPrice:3190.00, rating:4.5,
-    img:"../img/PcGamerRyzen5.jpg",
-    category:"Pc montado",
-    desc:"Um PC gamer com Ryzen 5 5600GT é uma máquina de bom custo-benefício com vídeo integrado, ideal para jogos de entrada e multitarefas. O processador tem 6 núcleos e 12 threads, com clock máximo de até 4.6 GHz, e possui gráficos integrados Radeon Vega 7, permitindo jogar muitos títulos sem uma placa de vídeo dedicada, como Valorant, League of Legends, Fortnite e Minecraft. As configurações comuns incluem 16GB de RAM DDR4, um SSD (geralmente M.2) para agilidade no carregamento e uma fonte de 500W com certificação 80 Plus."},
-  { id: "p9", title: "Computador Gamer Pc Completo ", price: 1777.00, oldPrice:1877.00, rating:3.8,
-    img:"../img/ComputadorGamerPcCompletoIntelCorei5.jpg",
-    category:"Pc montado",
-    desc:"Processador Intel Core i5 Super Turbo Memória RAM 8GB DDR3 SSD 512GB Monitor 20 Polegadas"},
-  { id: "p10", title: "Notebook HP 256R G9 ", price: 2599.00, oldPrice:2799.00, rating:4.8,
-    img:"../img/NotebookHP256RG9 .jpg",
-    category:"HP",
-    desc:"O Notebook HP 256R G9 com processador Intel Core i3 de 13ª geração é uma opção para uso básico de trabalho, estudos e entretenimento, com especificações como 8GB de RAM, SSD de 256GB e tela de 15,6 HD, e sistema operacional Windows 11 Home."},
-  { id: "p11", title: "Notebook Positivo Duo 2 em 1", price: 1249.99, oldPrice:1385.00, rating:4.2,
-    img:"../img/NotebookPositivoDuo2em1.jpg",
-    category:"Positivo",
-    desc:"O Notebook Positivo Duo 2 em 1 C4128B-3 é um notebook conversível que funciona como laptop e tablet, ideal para tarefas básicas como navegar na internet, estudar e trabalhar. Ele possui processador Intel Celeron N4020, 4GB de RAM, 128GB de armazenamento eMMC, tela sensível ao toque IPS HD de 11,6 polegadas, Windows 11 Home e bateria com duração de até 6 horas. O modelo também inclui uma caneta capacitiva, tecla de acesso rápido ao Netflix e garantia de 1 ano. "},
-  { id: "p12", title: "Computador Dell 24 completo", price: 5929.00, oldPrice:6100.00, rating:4.5,
-    img:"../img/ComputadorDell24.jpg",
-    category:"Pc montado",
-    desc:"Um Computador Dell 24 geralmente se refere a um modelo All-in-One de 24 polegadas, que combina a tela e os componentes do computador em uma única unidade. As especificações variam entre os modelos, mas as versões mais recentes (como o EC24250) incluem telas Full HD (1920x1080), processadores Intel Core de 13ª geração (como i5 ou i7), SSDs rápidos, e recursos como webcam pop-up, Wi-Fi 6E e teclado e mouse sem fio"}
+    desc:"O Samsung Galaxy Z Flip 7 é um smartphone Android de bom nível, ótimo para fotos, que pode satisfazer até o mais exigente dos usuários. Tem uma enorme tela Touchscreen de 6.9 polegadas com uma resolução de 2520x1080 pixel. Sobre as características deste Samsung Galaxy Z Flip 7 na verdade não falta nada. Começando pelo 5G que permite a transferência de dados e excelente navegação na internet, além de conectividade Wi-fi e GPS. Tem também leitor multimídia, videoconferência e bluetooth. Enfatizamos a boa memória interna de 512 GB mas sem a possibilidade de expansão. O Samsung Galaxy Z Flip 7 é um produto com poucos concorrentes em termos de multimídia graças à câmera de 50 megapixels que permite ao Samsung Galaxy Z Flip 7 tirar fotos fantásticas com uma resolução de 8165x6124 pixels e gravar vídeos em 4K a espantosa resolução de 3840x2160 pixels. Muito fino, 6.5 milímetros, o que torna o Samsung Galaxy Z Flip 7 realmente interessante."}
 ];
 
 /* Estado */
@@ -257,3 +256,4 @@ document.getElementById('closeCart').addEventListener('click', ()=>{ cartModal.s
 /* inicializa */
 renderGrid(state.products);
 updateCartUI();
+
