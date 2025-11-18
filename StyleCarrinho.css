@@ -108,6 +108,43 @@ button:hover {
   padding: 30px;          
 }
 
+/* layout principal: lista do carrinho + painel de total lado a lado */
+main{ 
+  display:flex; 
+  gap:24px; 
+  padding:28px 20px; 
+  align-items:flex-start;
+}
+
+#cart-container{
+  flex:1 1 680px;
+  min-width:300px;
+}
+
+.total-container{
+  flex:0 0 320px;
+  background: linear-gradient(135deg,#7c3aed,#7364ec);
+  color:#fff;
+  border-radius:12px;
+  padding:18px;
+  box-shadow: 0 6px 18px rgba(16,24,43,0.08);
+}
+
+/* styling for individual cart cards (renderizarCarrinho creates white cards) */
+.item-card{ background:#ffffff; padding:12px; border-radius:10px; box-shadow:0 2px 6px rgba(16,24,43,0.06); display:flex; gap:12px; align-items:center }
+
+/* card internal styles to match theme */
+.item-card img{ width:72px; height:72px; object-fit:cover; border-radius:8px }
+.item-card div { color:#111 }
+
+.total-container h3{ margin:0 0 6px; color:#fff }
+.total-container .btn{ width:100%; margin-top:8px }
+.total-container .btn-primary{ background: rgba(255,255,255,0.95); color:#4b0082 }
+.total-container .btn-ghost{ background:transparent; color:#fff; border:1px solid rgba(255,255,255,0.12) }
+
+/* debug pre */
+#cart-raw{ font-size:13px; color:#333; max-height:120px; overflow:auto; border-radius:8px; }
+
 .toggle { 
   text-align:center; 
   margin-top:12px; 

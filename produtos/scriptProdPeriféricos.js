@@ -57,6 +57,11 @@ let state = {
   selected: null
 };
 
+// inicializa o cart local a partir da API compartilhada quando disponível
+if (typeof getCarrinho === 'function') {
+  try { state.cart = getCarrinho(); } catch(e){ state.cart = []; }
+}
+
 /* DOM refs */
 const grid = document.getElementById('productGrid');
 const detail = document.getElementById('detailPanel');
@@ -155,11 +160,13 @@ function selectProduct(id){
 /* adicionar ao carrinho */
 function addToCart(id, qty = 1){
   const prod = state.products.find(x=>x.id===id);
-  const found = state.cart.find(i=>i.id===id);
-  if(found){
-    found.qty += qty;
+  if (!prod) return;
+  if (typeof adicionarProduto === 'function'){
+    adicionarProduto(prod.id, prod.title || prod.nome || prod.id, prod.price || prod.preco || 0, qty, prod.img || prod.imagem || '');
   } else {
-    state.cart.push({ id:prod.id, title:prod.title, price:prod.price, img:prod.img, qty });
+    const found = state.cart.find(i=>i.id===id);
+    if(found) found.qty += qty; else state.cart.push({ id:prod.id, title:prod.title, price:prod.price, img:prod.img, qty });
+    try { localStorage.setItem('cart_local', JSON.stringify(state.cart)); } catch(e){}
   }
   updateCartUI();
   showMiniToast(`${prod.title} adicionado ao carrinho`);
@@ -173,16 +180,25 @@ function buyNow(id, qty=1){
 
 /* atualizar UI do carrinho */
 function updateCartUI(){
-  cartCount.textContent = state.cart.reduce((s,i)=>s+i.qty,0);
-  // fill cart modal
+  const shared = (typeof getCarrinho === 'function') ? getCarrinho() : null;
+  const cart = Array.isArray(shared) ? shared : state.cart;
+  const normalize = (item) => ({
+    id: item.id,
+    title: item.title || item.nome || item.id,
+    price: item.price || item.preco || item.valor || 0,
+    img: item.img || item.imagem || '',
+    qty: item.qtd || item.qty || 1
+  });
+  const normalized = cart.map(normalize);
+  cartCount.textContent = normalized.reduce((s,i)=>s+i.qty,0);
   cartItemsDiv.innerHTML = '';
-  if(state.cart.length===0){
+  if(normalized.length===0){
     cartItemsDiv.innerHTML = `<div class="cart-empty">Seu carrinho está vazio.</div>`;
     cartFooter.innerHTML = '';
     return;
   }
   let total = 0;
-  state.cart.forEach(item=>{
+  normalized.forEach(item=>{
     total += item.price * item.qty;
     const div = document.createElement('div');
     div.className = 'cart-item';
@@ -198,8 +214,8 @@ function updateCartUI(){
     `;
     cartItemsDiv.appendChild(div);
     div.querySelector('[data-remove]').addEventListener('click', ()=>{
-      state.cart = state.cart.filter(c=>c.id!==item.id);
-      updateCartUI();
+      if (typeof removerItem === 'function') removerItem(item.id);
+      else { state.cart = state.cart.filter(c=>c.id!==item.id); updateCartUI(); }
     });
   });
   cartFooter.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px">
@@ -209,8 +225,25 @@ function updateCartUI(){
     <button id="checkoutBtn" style="flex:1;padding:10px;border-radius:8px;border:none;background:var(--accent);color:#fff;cursor:pointer">Finalizar compra</button>
     <button id="clearCart" style="padding:10px;border-radius:8px;border:1px solid #eee;background:#fff;cursor:pointer">Limpar</button>
   </div>`;
-  document.getElementById('checkoutBtn').addEventListener('click', ()=>{ alert('Checkout simulado. Integrar PSP para finalizar.'); });
-  document.getElementById('clearCart').addEventListener('click', ()=>{ state.cart = []; updateCartUI(); });
+  document.getElementById('checkoutBtn').addEventListener('click', ()=>{
+    try {
+      if (typeof setCarrinho === 'function'){
+        const current = (typeof getCarrinho === 'function') ? getCarrinho() : state.cart;
+        const normalized = (Array.isArray(current) ? current : []).map(i => ({ id: i.id, nome: i.title || i.nome || i.id, preco: i.price || i.preco || 0, qtd: i.qty || i.qtd || 1 }));
+        setCarrinho(normalized);
+      } else {
+        const local = JSON.parse(localStorage.getItem('cart_local') || '[]');
+        if (local && local.length){
+          const normalized = local.map(i => ({ id: i.id, nome: i.title || i.nome || i.id, preco: i.price || i.preco || 0, qtd: i.qty || i.qtd || 1 }));
+          localStorage.setItem('carrinho', JSON.stringify(normalized));
+        }
+      }
+    } catch(e){
+      try { const local = JSON.parse(localStorage.getItem('cart_local')||'[]'); localStorage.setItem('carrinho', JSON.stringify(local)); } catch(e){}
+    }
+    window.location.href = '../carrinho.html';
+  });
+  document.getElementById('clearCart').addEventListener('click', ()=>{ if(typeof limparCarrinho==='function') limparCarrinho(); else { state.cart = []; updateCartUI(); } });
 }
 
 /* mini toast */
