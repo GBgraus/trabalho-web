@@ -52,7 +52,7 @@
           </div>
           <br>
           <div class="actions">
-            <button class="btn" style="background: #7364ec; color: rgba(255, 255, 255, 1);" onclick='addCarrinho(${JSON.stringify(p.id)})'>Adicionar</button>
+            <button class="btn" style="background: #7364ec; color: rgba(255, 255, 255, 1);" onclick='adicionarProduto(${JSON.stringify(p.id)})'>Adicionar</button>
             <button class="btn" style="background: #7364ec; color: rgba(255, 255, 255, 1);" onclick='comprarAgora(${JSON.stringify(p.id)})'>Comprar</button>
           </div>
         </div>`;
@@ -103,56 +103,34 @@
     const cartCount = document.getElementById('cart-count');
     const cartTotal = document.getElementById('cart-total');
 
-    // Use as funções de carrinho compartilhadas (definidas em carrinho.js)
-    // Inicializa o estado do carrinho a partir da implementação comum
-    let carrinho = (typeof getCarrinho === 'function') ? getCarrinho() : JSON.parse(localStorage.getItem('carrinho') || '[]');
+    let carrinho = JSON.parse(localStorage.getItem('carrinho') || '[]');
 
-    function salvarCarrinho(){
-      if (typeof setCarrinho === 'function') setCarrinho(carrinho);
-      else localStorage.setItem('carrinho', JSON.stringify(carrinho));
-    }
+    function salvarCarrinho(){ localStorage.setItem('carrinho', JSON.stringify(carrinho)); }
 
-    // Se usuário clicar através deste script, delega para a implementação comum
     function addCarrinho(id){
       const prod = produtos.find(p => p.id === id);
-      if(!prod) return;
-      if (typeof adicionarProduto === 'function') {
-        // carrinho.js já atualiza contador e salva
-        adicionarProduto(prod.id, prod.nome, prod.preco);
-      } else {
-        const item = carrinho.find(i => i.id === id);
-        if(item) item.qtd += 1; else carrinho.push({ id: prod.id, nome: prod.nome, preco: prod.preco, qtd: 1 });
-        salvarCarrinho();
-      }
+      const item = carrinho.find(i => i.id === id);
+      if(item) item.qtd += 1; else carrinho.push({ id: prod.id, nome: prod.nome, preco: prod.preco, qtd: 1 });
+      atualizarCarrinho();
       abrirCarrinho();
     }
 
-    // Não sobrescrever implementações globais fornecidas por `carrinho.js`.
-    if (typeof window.removerItem !== 'function') {
-      window.removerItem = function(id){
-        carrinho = carrinho.filter(i => i.id !== id);
-        salvarCarrinho();
-        atualizarCarrinho();
-      }
+    function removerItem(id){
+      carrinho = carrinho.filter(i => i.id !== id);
+      atualizarCarrinho();
     }
 
-    if (typeof window.alterarQtd !== 'function') {
-      window.alterarQtd = function(id, delta){
-        const item = carrinho.find(i => i.id === id);
-        if(!item) return;
-        item.qtd += delta;
-        if(item.qtd <= 0) window.removerItem(id);
-        salvarCarrinho();
-        atualizarCarrinho();
-      }
+    function alterarQtd(id, delta){
+      const item = carrinho.find(i => i.id === id);
+      if(!item) return;
+      item.qtd += delta;
+      if(item.qtd <= 0) removerItem(id); else atualizarCarrinho();
     }
 
     function total(){ return carrinho.reduce((s,i)=> s + i.preco * i.qtd, 0); }
 
     function atualizarCarrinho(){
       cartItems.innerHTML = '';
-      // Recarrega estado do storage para evitar divergência
-      carrinho = (typeof getCarrinho === 'function') ? getCarrinho() : carrinho;
       carrinho.forEach(i => {
         const el = document.createElement('div');
         el.className = 'cart-item';
@@ -171,7 +149,6 @@
       });
       cartCount.textContent = carrinho.reduce((s,i)=> s + i.qtd, 0);
       cartTotal.textContent = R$(total());
-      // salva via API comum
       salvarCarrinho();
     }
 
@@ -184,20 +161,8 @@
     document.getElementById('btn-limpar').addEventListener('click', ()=>{ carrinho = []; atualizarCarrinho(); });
     });
 
-    // Ouve mudanças vindas de `carrinho.js` (ou de qualquer lugar que chame setCarrinho)
-    window.addEventListener('carrinhoChanged', (e) => {
-      // atualiza estado local e render
-      carrinho = Array.isArray(e.detail) ? e.detail : (typeof getCarrinho === 'function' ? getCarrinho() : carrinho);
-      atualizarCarrinho();
-    });
-
-    // Garantir contador atualizado na inicialização
-    if (typeof atualizarContadorCarrinho === 'function') atualizarContadorCarrinho();
-
 
     function checkout(){
-      // assegura estado atual do carrinho
-      carrinho = (typeof getCarrinho === 'function') ? getCarrinho() : carrinho;
       if(!carrinho.length){ alert('Seu carrinho está vazio.'); return; }
       if(!usuarioLogado){ window.location.href = 'login.html'; return; }
       const compras = JSON.parse(localStorage.getItem('compras')||'[]');
