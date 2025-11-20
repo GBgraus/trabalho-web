@@ -59,3 +59,30 @@
                 detalhesDiv.innerHTML = htmlContent;
             });
         });
+
+// Função para finalizar compra — usa utilitários de `carrinho.js`
+function finalizarCompra() {
+    try {
+        const carrinho = getCarrinho();
+        if (!Array.isArray(carrinho) || carrinho.length === 0) {
+            alert('Seu carrinho está vazio. Adicione produtos antes de finalizar.');
+            return;
+        }
+
+        // Aqui você pode integrar com API de pagamento ou redirecionar.
+        // Por enquanto simulamos sucesso, limpamos o carrinho e redirecionamos.
+        const total = carrinho.reduce((s, it) => s + ((Number(it.preco) || 0) * (Number(it.qtd) || 1)), 0);
+        const formatted = formatCurrency(total);
+        if (!confirm(`Confirma o pagamento de ${formatted}?`)) return;
+
+        // limpa o carrinho (função definida em `carrinho.js`)
+        try { limparCarrinho(); } catch (e) { localStorage.removeItem('carrinho'); }
+
+        alert('Pagamento confirmado! Obrigado pela sua compra.');
+        // redireciona para a página inicial ou página de agradecimento
+        window.location.href = '../Index.html';
+    } catch (e) {
+        console.error('Erro ao finalizar compra:', e);
+        alert('Ocorreu um erro ao processar o pagamento. Tente novamente.');
+    }
+}
