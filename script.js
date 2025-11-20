@@ -52,7 +52,7 @@
           </div>
           <br>
           <div class="actions">
-            <button class="btn" style="background: #7364ec; color: rgba(255, 255, 255, 1);" onclick='adicionarProduto(${JSON.stringify(p.id)})'>Adicionar</button>
+            <button class="btn" style="background: #7364ec; color: rgba(255, 255, 255, 1);" onclick='addCarrinho(${JSON.stringify(p.id)})'>Adicionar</button>
             <button class="btn" style="background: #7364ec; color: rgba(255, 255, 255, 1);" onclick='comprarAgora(${JSON.stringify(p.id)})'>Comprar</button>
           </div>
         </div>`;
@@ -103,34 +103,56 @@
     const cartCount = document.getElementById('cart-count');
     const cartTotal = document.getElementById('cart-total');
 
-    let carrinho = JSON.parse(localStorage.getItem('carrinho') || '[]');
+    // Use as funções de carrinho compartilhadas (definidas em carrinho.js)
+    // Inicializa o estado do carrinho a partir da implementação comum
+    let carrinho = (typeof getCarrinho === 'function') ? getCarrinho() : JSON.parse(localStorage.getItem('carrinho') || '[]');
 
-    function salvarCarrinho(){ localStorage.setItem('carrinho', JSON.stringify(carrinho)); }
+    function salvarCarrinho(){
+      if (typeof setCarrinho === 'function') setCarrinho(carrinho);
+      else localStorage.setItem('carrinho', JSON.stringify(carrinho));
+    }
 
+    // Se usuário clicar através deste script, delega para a implementação comum
     function addCarrinho(id){
       const prod = produtos.find(p => p.id === id);
-      const item = carrinho.find(i => i.id === id);
-      if(item) item.qtd += 1; else carrinho.push({ id: prod.id, nome: prod.nome, preco: prod.preco, qtd: 1 });
-      atualizarCarrinho();
+      if(!prod) return;
+      if (typeof adicionarProduto === 'function') {
+        // carrinho.js já atualiza contador e salva
+        adicionarProduto(prod.id, prod.nome, prod.preco);
+      } else {
+        const item = carrinho.find(i => i.id === id);
+        if(item) item.qtd += 1; else carrinho.push({ id: prod.id, nome: prod.nome, preco: prod.preco, qtd: 1 });
+        salvarCarrinho();
+      }
       abrirCarrinho();
     }
 
-    function removerItem(id){
-      carrinho = carrinho.filter(i => i.id !== id);
-      atualizarCarrinho();
+    // Não sobrescrever implementações globais fornecidas por `carrinho.js`.
+    if (typeof window.removerItem !== 'function') {
+      window.removerItem = function(id){
+        carrinho = carrinho.filter(i => i.id !== id);
+        salvarCarrinho();
+        atualizarCarrinho();
+      }
     }
 
-    function alterarQtd(id, delta){
-      const item = carrinho.find(i => i.id === id);
-      if(!item) return;
-      item.qtd += delta;
-      if(item.qtd <= 0) removerItem(id); else atualizarCarrinho();
+    if (typeof window.alterarQtd !== 'function') {
+      window.alterarQtd = function(id, delta){
+        const item = carrinho.find(i => i.id === id);
+        if(!item) return;
+        item.qtd += delta;
+        if(item.qtd <= 0) window.removerItem(id);
+        salvarCarrinho();
+        atualizarCarrinho();
+      }
     }
 
     function total(){ return carrinho.reduce((s,i)=> s + i.preco * i.qtd, 0); }
 
     function atualizarCarrinho(){
       cartItems.innerHTML = '';
+      // Recarrega estado do storage para evitar divergência
+      carrinho = (typeof getCarrinho === 'function') ? getCarrinho() : carrinho;
       carrinho.forEach(i => {
         const el = document.createElement('div');
         el.className = 'cart-item';
@@ -149,6 +171,7 @@
       });
       cartCount.textContent = carrinho.reduce((s,i)=> s + i.qtd, 0);
       cartTotal.textContent = R$(total());
+      // salva via API comum
       salvarCarrinho();
     }
 
@@ -161,20 +184,35 @@
     document.getElementById('btn-limpar').addEventListener('click', ()=>{ carrinho = []; atualizarCarrinho(); });
     });
 
+    // Ouve mudanças vindas de `carrinho.js` (ou de qualquer lugar que chame setCarrinho)
+    window.addEventListener('carrinhoChanged', (e) => {
+      // atualiza estado local e render
+      carrinho = Array.isArray(e.detail) ? e.detail : (typeof getCarrinho === 'function' ? getCarrinho() : carrinho);
+      atualizarCarrinho();
+    });
+
+    // Garantir contador atualizado na inicialização
+    if (typeof atualizarContadorCarrinho === 'function') atualizarContadorCarrinho();
+
 
     function checkout(){
+      // assegura estado atual do carrinho
+      carrinho = (typeof getCarrinho === 'function') ? getCarrinho() : carrinho;
       if(!carrinho.length){ alert('Seu carrinho está vazio.'); return; }
       if(!usuarioLogado){ window.location.href = 'login.html'; return; }
       const compras = JSON.parse(localStorage.getItem('compras')||'[]');
       const order = {
         id: crypto.randomUUID(),
         usuario: usuarioLogado.email,
-        itens: carrinho.map(i=>({id:i.id,nome:i.nome,preco:i.preco,qtd:i.qtd})),
+        // preserva imagem se disponível (i.img ou i.imagem) para exibição no admin
+        itens: carrinho.map(i=>({id:i.id,nome:i.nome,preco:i.preco,qtd:i.qtd,img: i.img || i.imagem || ''})),
         total: total(),
         data: new Date().toISOString()
       };
       compras.push(order);
       localStorage.setItem('compras', JSON.stringify(compras));
+      // Notifica listeners (ex: painel admin em outras abas) que houve uma nova compra
+      try{ window.dispatchEvent(new CustomEvent('comprasChanged', { detail: compras })); }catch(e){}
       alert('Compra finalizada! Total: '+ R$(order.total));
       carrinho = []; atualizarCarrinho(); fecharCarrinho();
       carregarPerfil();
@@ -316,16 +354,41 @@
       const compras = JSON.parse(localStorage.getItem('compras')||'[]');
       const ags = JSON.parse(localStorage.getItem(agendaKey)||'[]');
       const boxC = document.getElementById('admin-compras');
-      boxC.innerHTML = compras.length ? compras.map(o=>{
-        const itens = o.itens.map(i=> `${i.qtd}× ${i.nome}`).join(', ');
-        return `<div class="pill" style="display:block;margin-bottom:6px">${o.usuario} — Pedido ${o.id.slice(0,8)} — ${new Date(o.data).toLocaleString('pt-BR')} — ${itens} • <strong>${R$(o.total)}</strong></div>`;
-      }).join('') : 'Nenhuma compra.';
+      if(!compras.length){
+        boxC.textContent = 'Nenhuma compra.';
+      } else {
+        boxC.innerHTML = compras.map(o=>{
+          const itensHtml = o.itens.map(i=>`
+            <div style="display:flex;gap:10px;align-items:center;margin-bottom:8px">
+              ${i.img ? `<img src="${i.img}" alt="${i.nome}" style="width:64px;height:48px;object-fit:cover;border-radius:6px">` : `<div style="width:64px;height:48px;background:rgba(0,0,0,0.06);border-radius:6px;display:grid;place-items:center">🛒</div>`}
+              <div style="flex:1">
+                <div style="font-weight:600">${i.qtd}× ${i.nome}</div>
+                <div class="note">${R$(i.preco)} cada</div>
+              </div>
+              <div style="min-width:100px;text-align:right;font-weight:700">${R$(i.preco * i.qtd)}</div>
+            </div>`).join('');
+
+          return `
+            <div style="padding:12px;margin-bottom:12px;border-radius:8px;background:rgba(0,0,0,0.03)">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+                <div><strong>${o.usuario}</strong> — Pedido ${o.id.slice(0,8)}</div>
+                <div style="text-align:right">${new Date(o.data).toLocaleString('pt-BR')}<div style="font-weight:800;margin-top:4px">${R$(o.total)}</div></div>
+              </div>
+              <div>${itensHtml}</div>
+            </div>`;
+        }).join('');
+      }
 
       const boxA = document.getElementById('admin-agendamentos');
       boxA.innerHTML = ags.length ? ags.sort((a,b)=> (a.data+a.hora).localeCompare(b.data+b.hora)).map(a=>
         `<div class="pill" style="display:block;margin-bottom:6px">${a.data} • ${a.hora} — ${a.servico} (${a.disp}) — <strong>${a.nome}</strong> &lt;${a.email}&gt;</div>`
       ).join('') : 'Nenhum agendamento.';
     }
+
+    // Atualiza painel admin quando houver mudanças nas compras (ex: outra aba finalizou um pedido)
+    window.addEventListener('comprasChanged', (e)=>{
+      if(usuarioLogado && usuarioLogado.tipo==='admin') carregarAdmin();
+    });
 
     // Botões Perfil/Admin
     const btnPerfil = document.getElementById('btn-perfil');
