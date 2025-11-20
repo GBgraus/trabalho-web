@@ -1,4 +1,3 @@
-
 /* ======= JSON de produtos (amostrais) ======= */
 const PRODUCTS = [
   { id: "p1", title: "Apple iPhone 17 Pro Max ", price: 12598.95, oldPrice:13998.84, rating:4.5,
