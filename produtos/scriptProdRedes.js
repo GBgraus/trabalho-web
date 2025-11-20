@@ -1,10 +1,44 @@
 /* ======= JSON de produtos (amostrais) ======= */
 const PRODUCTS = [
     { id: "p1", title: "Roteador Mercusys Mr60x, WIFI, 6 Ax1500 Dual Band, Gigabit", price: 129.90 , oldPrice: 143.94, rating:4.5,
-  img:"../img/Roteador-Mercusys-MR60X-WIFI-6-Ax1500-Dual-Band-Gigabit.jpg",
+  img:"../img/RoteadorMercusysMr60x.jpg",
   category:"Roteadores",
-    desc:"O roteador padrão wi-fi 6 mais recente traz tecnologia avançada para proporcionar uma experiência wireless de alta performance. Com o mr60x, você obtém velocidades gigabit ultrarrápidas de até 1500 mbps, com 1201 mbps em 5 ghz e 300 mbps em 2,4 ghz, ideal para jogos online e streaming em 4k. Além disso, o wi-fi 6 melhora a capacidade da rede para suportar a crescente demanda de dados, permitindo a transmissão simultânea entre vários dispositivos e aumentando a eficiência da sua rede wi-fi. As quatro antenas de alto ganho e a tecnologia de beamforming garantem sinais fortes e conexões estáveis em toda a sua casa. " }
-];
+    desc:"O roteador padrão wi-fi 6 mais recente traz tecnologia avançada para proporcionar uma experiência wireless de alta performance. Com o mr60x, você obtém velocidades gigabit ultrarrápidas de até 1500 mbps, com 1201 mbps em 5 ghz e 300 mbps em 2,4 ghz, ideal para jogos online e streaming em 4k. Além disso, o wi-fi 6 melhora a capacidade da rede para suportar a crescente demanda de dados, permitindo a transmissão simultânea entre vários dispositivos e aumentando a eficiência da sua rede wi-fi. As quatro antenas de alto ganho e a tecnologia de beamforming garantem sinais fortes e conexões estáveis em toda a sua casa. " },
+    { id: "p2", title: "Roteador Wi-fi W5", price: 181.99 , oldPrice: 198.00, rating:4.6,
+  img:"../img/Roteadorw5.jpg",
+  category:"Roteadores",
+  desc:"COBERTURA AMPLA COM QUATRO ANTENAS EXTERNAS -O W5-1200GS conta com quatro antenas externas, que ampliam o alcance e a estabilidade do sinal Wi-Fi, proporcionando melhor cobertura mesmo em ambientes com barreiras físicas."},
+   { id: "p3", title: "TP-Link Switch Gigabit De Mesa Com 8 Portas", price: 131.90 , oldPrice: 150.00, rating:4.8,
+  img:"../img/switch8portas.jpg",
+  category:"Switch",
+  desc:" O TP-Link Switch Gigabit de Mesa com 8 Portas (modelo LS1008G) é uma solução confiável e eficiente para expandir sua rede com fio. Suporta dispositivos como computadores, impressoras e webcams, sendo adequado para diversos cenários, como residências e pequenas empresas."},
+   { id: "p4", title: "Repetidor de sinal Wi-Fi TP-Link TL-WA850RE", price: 96.90 , oldPrice: 120.00, rating:4.6,
+  img:"../img/Repetidordesinal.jpg",
+  category:"Repetidores",
+  desc:" Conecta-se ao roteador via wireless, expandindo e fortalecendo o sinal em áreas não alcançadas anteriormente.Oferece uma velocidade de até 300Mbps, ideal para navegação estável e rápida. "},
+   { id: "p5", title: "UGREEN Cabo Ethernet Cat 8", price: 60.99 , oldPrice: 75.00, rating:4.8,
+  img:"../img/UGREENCaboEthernetCat 8.jpg",
+  category:"Cabos",
+  desc:"UGREEN Cabo Ethernet Cat 8 15 pés, cabo de rede trançado de alta velocidade de 40 Gbps 2000 MHz Cat8 RJ45 Cabos LAN blindados para serviços pesados internos compatíveis para jogos PC PS5 PS4."},
+  { id: "p6", title: "Cabo de Rede Lan Rj45", price: 53.88 , oldPrice: 60.00, rating:4.8,
+  img:"../img/CabodeRedeLanRj45.jpg",
+  category:"Cabos",
+  desc:"Alta Velocidade de Transferência até 10Gbps: Este cabo Cat6 da oferece uma impressionante velocidade de transferência de até 10Gbps, ideal para tarefas que exigem alta largura de banda como streaming de vídeo em alta definição e jogos online."},
+   { id: "p7", title: "Hub USB 3.0 Com 7 Portas", price: 29.90 , oldPrice: 35.00, rating:4.7,
+  img:"../img/HubUSB3.0Com7Portas.jpg",
+  category:"Hubs",
+  desc:"Super Velocidade de Transferência (USB 3.0) Com tecnologia USB 3.0, transfira arquivos a até 5 Gbps — até 10x mais rápido que USB 2.0! Ideal para HDs externos, pendrives, impressoras e muito mais.."},
+   { id: "p8", title: "Repetidor de Sinal Wi-Fi 1800m Premium", price: 34.70 , oldPrice: 40.00, rating:4.1,
+  img:"../img/RepetidordeSinalWi-Fi1800mPremium.jpg",
+  category:"Repetidores",
+  desc:"  COBERTURA AMPLIADA EM TODO O AMBIENTE – Leve conexão rápida e estável para cada canto da sua casa, escritório ou empresa, sem pontos sem sinal."},
+   { id: "p9", title: "MERCUSYS MS105G ", price: 64.90, oldPrice: 100.00, rating:4.8,
+  img:"../img/MERCUSYSMS105G.jpg",
+  category:"switch",
+   desc:"Hub switch 5 ptos mercusys 10/100/1000 ms105g 5ptos/rj45/plug and play ms105g,extensão fácil - conecte dispositivos humanos via cabo RJ45 design pequeno - design compacto para instalação flexível sem ocupar muito espaço"},
+     ];
+    
+    
 
 /* Estado */
 let state = {
