@@ -1,11 +1,11 @@
 /* ======= JSON de produtos (amostrais) ======= */
 const PRODUCTS = [
   { id: "p1", title: "Memória Notebook Adata 8GB,", price: 135.90, oldPrice:179.90, rating:4.5,
-    img:"../img/memoriaadata.jpeg",
+    img:"../img/MemóriaNotebook.jpg",
     category:"ADATA",
     desc:"- Densidades: 8 GB - Velocidades: 3200 MHz - Latência: CL22 - Módulo: DIMM de 260 pinos - Fonte de alimentação: VDD e VDDQ=1,2V +0,06/-0,06V - Fonte de alimentação de ativação de DRAM: VPP = 2,5 V (+0,25 V / -0,125 V) - DRAM VCC: DDR4 STD 1,2 V - Suporta Intel Core 10ª séries - Temperatura de operação: 0°C a 85°C. - Latência CL22, proporcionando resposta rápida e eficiente em operações de memória. - Módulo DIMM de 260 pinos, garantindo compatibilidade com notebooks modernos."},
   { id: "p2", title: "SSD ADATA SU650 240GB", price: 197.52, oldPrice:235.90, rating:4.8,
-    img:"../img/SSDAdata,jpeg.jpg",
+    img:"../img/SSDAdatajpeg.jpeg",
     category:"ADATA",
     desc:"Sobre este item: O drive de estado sólido Ultimate SU630 implementa 3D NAND Flash e um controlador de alta velocidade, oferecendo capacidade de 240GB. Oferece desempenho de leitura / gravação de até 520 / 450MB / s e maior confiabilidade do que os SSDs NAND 2D. O SU630 possui armazenamento em cache SLC e tecnologias avançadas de correção de erros para garantir desempenho e integridade otimizados dos dados. Para aqueles que desejam experimentar uma atualização clara do PC, o SU630 é uma excelente op."},
   { id: "p3", title: "Kit Upgrade", price: 354.40, oldPrice:396.09, rating:4.7,
@@ -22,17 +22,17 @@ const PRODUCTS = [
     desc:"- Sistema operacional compatível: Win7-64bit, Win10-64bit, Win11-64bit, Linux. - Memória: 4GB GDDR5. - Modelo: PCYES RX550. - Memory Clock: 6000MHz."},
   
   { id: "p7", title: "Placa de vídeo GeForce RTX 5060 Ti", price: 2349.99, oldPrice:2485.00, rating:4.8,
-    img:"../img/placagiga.jpeg",
+    img:"../img/PlacadevídeoGeForce.jpg",
     category:"GIGABYTE",
     desc:"- Alimentado pela arquitetura NVIDIA Blackwell e DLSS 4. - Alimentado por GeForce RTX 5060 Ti. - Sistema de refrigeração WINDFORCE."},
   
   { id: "p8", title: " Fifine AmpliGame Placa de captura de vídeo, HD", price: 368.40, oldPrice:397.99, rating:4.5,
-    img:"../img/placacapvideoFIFINE.jpeg",
+    img:"../img/FifinePlaca.jpg",
     category:"FIFINE",
     desc:"- HD 1080 60fps para áudio e vídeo, jogos, transmissão ao vivo. - 4K HDMI para placa de captura USB compatível com PS4/Windows/Mac OS/Switch/Xbox-V3."},
 
   { id: "p9", title: "Cooler Fan", price: 49.00, oldPrice:57.72, rating:4.5,
-    img:"../img/Coolermymax.jpeg",
+    img:"../img/CoolerFan.jpg",
     category:"MyMax",
     desc: "- COOLER P/GAB. MYMAX STORM II 120X120 AZUL. - Produtos desenvolvidos com materiais resistêntes de alta tecnologia. - Produto com garantia contra defeitos de fabricação. - Verifique o modelo de compatibilidade do produto."},
   
@@ -42,7 +42,7 @@ const PRODUCTS = [
     desc:"- Cache: 64 MB. - RPM: 7200. - SATA 6Gb/s. - O HD é compatível com qualquer sistema operacional existente hoje. "},
   
   { id: "p11", title: "Nobreak Interativo 120 Volts", price: 879.99, oldPrice:929.90, rating:4.6,
-    img:"../img/nobreakintel.jpeg",
+    img:"../img/fonteestabilizada.jpeg",
     category:"Intelbras",
     desc:"- O ATTIV 1200 VA oferece proteção e autonomia para eletrônicos simples, como TVs, desktops, modems, roteadores, câmeras e DVRs. - Com design moderno e diferenciado, o ATTIV 1200 VA se adequa a ambientes domésticos e corporativos, permitindo uso em posições vertical ou horizontal."},
 
