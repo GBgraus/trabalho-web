@@ -86,3 +86,41 @@ function finalizarCompra() {
         alert('Ocorreu um erro ao processar o pagamento. Tente novamente.');
     }
 }
+
+// Confirma o pagamento: integra com o carrinho em localStorage.carrinho
+function confirmPayment(){
+    try{
+        const carrinho = JSON.parse(localStorage.getItem('carrinho') || '[]');
+        if(!Array.isArray(carrinho) || carrinho.length === 0){
+            alert('Seu carrinho está vazio. Adicione produtos antes de confirmar o pagamento.');
+            return;
+        }
+
+        const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado') || 'null');
+        const usuario = usuarioLogado ? usuarioLogado.email : 'cliente@local';
+
+        const itens = carrinho.map(i => ({ id: i.id, nome: i.nome || i.title || 'Produto', preco: Number(i.preco) || parseFloat(String(i.preco).replace(/\./g,'').replace(',','.')) || 0, qtd: i.qtd || i.quantidade || 1, img: i.img || i.imagem || '' }));
+        const total = itens.reduce((s,it) => s + (Number(it.preco) || 0) * (Number(it.qtd)||0), 0);
+
+        const compras = JSON.parse(localStorage.getItem('compras') || '[]');
+        const order = {
+            id: (typeof crypto !== 'undefined' && crypto.randomUUID) ? crypto.randomUUID() : ('order-' + Date.now()),
+            usuario: usuario,
+            itens: itens,
+            total: total,
+            data: new Date().toISOString()
+        };
+        compras.push(order);
+        localStorage.setItem('compras', JSON.stringify(compras));
+        try{ window.dispatchEvent(new CustomEvent('comprasChanged', { detail: compras })); }catch(e){}
+
+        // limpa o carrinho após confirmação
+        try { limparCarrinho(); } catch (e) { localStorage.removeItem('carrinho'); }
+
+        alert('Pagamento simulado. Compra confirmada! Total: ' + total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }));
+        window.location.href = '../Index.html';
+    } catch(e){
+        console.error('Erro em confirmPayment:', e);
+        alert('Ocorreu um erro ao processar o pagamento. Tente novamente.');
+    }
+}
