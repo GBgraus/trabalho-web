@@ -1,8 +1,5 @@
- 
-// Função para simular a troca de formulários conforme a opção clicada
-        document.querySelectorAll('.opcao-item').forEach(item => {
+       document.querySelectorAll('.opcao-item').forEach(item => {
             item.addEventListener('click', function() {
-                // Remove 'active' de todos e adiciona no clicado
                 document.querySelectorAll('.opcao-item').forEach(i => i.classList.remove('active'));
                 this.classList.add('active');
 
@@ -60,39 +57,77 @@
             });
         });
 
-// Função para finalizar compra — usa utilitários de `carrinho.js`
+function showCenterNotice(message, duration = 2000){
+    return new Promise((resolve)=>{
+        try{
+            const overlay = document.createElement('div');
+            overlay.style.position = 'fixed';
+            overlay.style.inset = '0';
+            overlay.style.display = 'grid';
+            overlay.style.placeItems = 'center';
+            overlay.style.background = 'rgba(0,0,0,0.35)';
+            overlay.style.zIndex = '10000';
+            overlay.style.opacity = '0';
+            overlay.style.transition = 'opacity .2s ease';
+
+            const box = document.createElement('div');
+            box.style.background = '#111';
+            box.style.color = '#fff';
+            box.style.padding = '16px 18px';
+            box.style.borderRadius = '12px';
+            box.style.maxWidth = '90vw';
+            box.style.width = 'min(420px, 90vw)';
+            box.style.textAlign = 'center';
+            box.style.fontSize = '15px';
+            box.style.boxShadow = '0 10px 30px rgba(0,0,0,0.45)';
+            box.textContent = String(message || '');
+            overlay.appendChild(box);
+
+            document.body.appendChild(overlay);
+            requestAnimationFrame(()=>{ overlay.style.opacity = '1'; });
+
+            function cleanup(){
+                overlay.style.opacity = '0';
+                setTimeout(()=>{ overlay.remove(); resolve(); }, 220);
+            }
+            overlay.addEventListener('click', cleanup);
+            setTimeout(cleanup, Math.max(1200, duration|0));
+        }catch(e){
+            alert(message);
+            resolve();
+        }
+    });
+}
+
 function finalizarCompra() {
     try {
         const carrinho = getCarrinho();
         if (!Array.isArray(carrinho) || carrinho.length === 0) {
-            alert('Seu carrinho está vazio. Adicione produtos antes de finalizar.');
+            showCenterNotice('Seu carrinho está vazio. Adicione produtos antes de finalizar.', 2200);
             return;
         }
 
-        // Aqui você pode integrar com API de pagamento ou redirecionar.
-        // Por enquanto simulamos sucesso, limpamos o carrinho e redirecionamos.
+
         const total = carrinho.reduce((s, it) => s + ((Number(it.preco) || 0) * (Number(it.qtd) || 1)), 0);
         const formatted = formatCurrency(total);
         if (!confirm(`Confirma o pagamento de ${formatted}?`)) return;
 
-        // limpa o carrinho (função definida em `carrinho.js`)
         try { limparCarrinho(); } catch (e) { localStorage.removeItem('carrinho'); }
 
-        alert('Pagamento confirmado! Obrigado pela sua compra.');
-        // redireciona para a página inicial ou página de agradecimento
-        window.location.href = '../Index.html';
+        showCenterNotice('Pagamento confirmado! Obrigado pela sua compra.').then(()=>{
+            window.location.href = '../Index.html';
+        });
     } catch (e) {
         console.error('Erro ao finalizar compra:', e);
         alert('Ocorreu um erro ao processar o pagamento. Tente novamente.');
     }
 }
 
-// Confirma o pagamento: integra com o carrinho em localStorage.carrinho
 function confirmPayment(){
     try{
         const carrinho = JSON.parse(localStorage.getItem('carrinho') || '[]');
         if(!Array.isArray(carrinho) || carrinho.length === 0){
-            alert('Seu carrinho está vazio. Adicione produtos antes de confirmar o pagamento.');
+            showCenterNotice('Seu carrinho está vazio. Adicione produtos antes de confirmar o pagamento.', 2200);
             return;
         }
 
@@ -114,11 +149,11 @@ function confirmPayment(){
         localStorage.setItem('compras', JSON.stringify(compras));
         try{ window.dispatchEvent(new CustomEvent('comprasChanged', { detail: compras })); }catch(e){}
 
-        // limpa o carrinho após confirmação
         try { limparCarrinho(); } catch (e) { localStorage.removeItem('carrinho'); }
 
-        alert('Pagamento simulado. Compra confirmada! Total: ' + total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }));
-        window.location.href = '../Index.html';
+        showCenterNotice('Pagamento simulado. Compra confirmada! Total: ' + total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })).then(()=>{
+            window.location.href = '../Index.html';
+        });
     } catch(e){
         console.error('Erro em confirmPayment:', e);
         alert('Ocorreu um erro ao processar o pagamento. Tente novamente.');

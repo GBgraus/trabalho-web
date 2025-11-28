@@ -23,9 +23,6 @@
 
     <span>Loja Tech</span>
   </a>
-    <a href="carrinho.html" class="btn-carrinho">
-      Carrinho (<span id="cart-count">0</span>)
-    </a>
     </div>
   </header>
 
@@ -43,70 +40,7 @@
 
     <div id="cart-preview" style="display:none;margin-top:12px"></div>
 
-  <script src="carrinho.js"></script>
-  <script>
-    // mostra um preview amigável do conteúdo salvo em localStorage.carrinho
-    (function(){
-      try{
-        const raw = localStorage.getItem('carrinho');
-        const el = document.getElementById('cart-preview');
-        if(!el) return;
-        if(!raw) { el.style.display = 'none'; return; }
-        const items = JSON.parse(raw || '[]');
-        if(!Array.isArray(items) || items.length===0){ el.style.display = 'none'; return; }
-        // monta um card compacto para cada item
-        el.style.display = 'block';
-        el.innerHTML = '<h4 style="margin:0 0 8px;color:#111">Preview do carrinho salvo</h4>';
-        const list = document.createElement('div');
-        list.style.display = 'flex';
-        list.style.flexDirection = 'column';
-        list.style.gap = '8px';
-        // calcula total usando a API normalizada se disponível, senão somar os valores brutos
-        try{
-          let totalCalc = 0;
-          if (typeof getCarrinho === 'function'){
-            const shared = getCarrinho();
-            totalCalc = (Array.isArray(shared) ? shared : []).reduce((s,i)=> s + (Number(i.preco||i.price||0) * Number(i.qtd||i.qty||1)), 0);
-          } else {
-            totalCalc = items.reduce((s,it)=> s + (Number(it.preco||it.price||0) * Number(it.qtd||it.qty||1)), 0);
-          }
-          const totalNode = document.createElement('div');
-          totalNode.style.margin = '8px 0 0';
-          totalNode.style.fontWeight = '700';
-          totalNode.style.color = '#111';
-          totalNode.textContent = 'Total calculado (preview): ' + (typeof formatCurrency === 'function' ? formatCurrency(totalCalc) : ('R$ ' + totalCalc.toFixed(2)));
-          el.appendChild(totalNode);
-        }catch(e){ console.error('erro ao calcular total no preview', e); }
-        items.forEach(it=>{
-          const row = document.createElement('div');
-          row.style.display = 'flex';
-          row.style.alignItems = 'center';
-          row.style.gap = '12px';
-          row.style.background = '#fff';
-          row.style.padding = '8px';
-          row.style.borderRadius = '8px';
-          // imagem
-          const thumb = document.createElement('div');
-          thumb.style.width = '48px';
-          thumb.style.height = '48px';
-          thumb.style.flex = '0 0 48px';
-          thumb.style.borderRadius = '6px';
-          thumb.style.overflow = 'hidden';
-          thumb.style.background = '#f3f3f3';
-          if(it.img){ const im = document.createElement('img'); im.src = it.img; im.alt = it.nome || it.title || it.id; im.style.width='100%'; im.style.height='100%'; im.style.objectFit='cover'; thumb.appendChild(im); }
-          else { thumb.textContent = (it.nome||it.title||it.id||'').slice(0,1).toUpperCase(); thumb.style.display='grid'; thumb.style.placeItems='center'; thumb.style.color='#666'; }
-          const info = document.createElement('div');
-          info.style.flex = '1';
-          info.innerHTML = `<div style="font-weight:700;color:#111">${it.nome || it.title || it.id}</div><div style="color:#666;font-size:13px">${formatCurrency(it.preco||it.price||0)} — qtde ${Number(it.qtd||it.qty||1)}</div>`;
-          row.appendChild(thumb);
-          row.appendChild(info);
-          list.appendChild(row);
-        });
-        el.appendChild(list);
-      }catch(e){ console.error('erro ao montar cart-preview', e); }
-    })();
-  </script>
-
+    <script src="carrinho.js"></script>
   <footer>
   <div class="container">
     <div class="grid">

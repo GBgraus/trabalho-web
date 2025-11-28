@@ -104,8 +104,6 @@
     const cartCount = document.getElementById('cart-count');
     const cartTotal = document.getElementById('cart-total');
 
-    // Use as funções de carrinho compartilhadas (definidas em carrinho.js)
-    // Inicializa o estado do carrinho a partir da implementação comum
     let carrinho = (typeof getCarrinho === 'function') ? getCarrinho() : JSON.parse(localStorage.getItem('carrinho') || '[]');
 
     function salvarCarrinho(){
@@ -113,7 +111,6 @@
       else localStorage.setItem('carrinho', JSON.stringify(carrinho));
     }
 
-    // Se usuário clicar através deste script, delega para a implementação comum
     function addCarrinho(id){
       const prod = produtos.find(p => p.id === id);
       if(!prod) return;
@@ -125,7 +122,7 @@
         if(item) item.qtd += 1; else carrinho.push({ id: prod.id, nome: prod.nome, preco: prod.preco, qtd: 1 });
         salvarCarrinho();
       }
-      abrirCarrinho();
+      // Não abrir mais drawer transparente; mantemos apenas o contador/toast
     }
 
     // Ao clicar em "Comprar" no Index, redireciona para a página de produtos correta
@@ -133,7 +130,7 @@
     function comprarAgora(id){
       const prod = produtos.find(p => p.id === id);
       if(!prod){ return; }
-      // mapeamento categoria -> página (edite aqui se quiser apontar outra página)
+
       const mapa = {
         'notebooks': 'produtos/ProdutosNotebooks&PCs.html',
         'smartphones': 'produtos/produtosSmartphones.html',
@@ -143,11 +140,9 @@
         'armazenamento': 'produtos/produtosComponentes.html'
       };
       const target = mapa[prod.categoria] || 'produtos/produtosComponentes.html';
-      // usar openId (id do produto) é mais robusto que título — edite a URL ?openId=<id> para testar
       window.location.href = `${target}?openId=${encodeURIComponent(prod.id)}`;
     }
 
-    // Não sobrescrever implementações globais fornecidas por `carrinho.js`.
     if (typeof window.removerItem !== 'function') {
       window.removerItem = function(id){
         carrinho = carrinho.filter(i => i.id !== id);
@@ -170,53 +165,52 @@
     function total(){ return carrinho.reduce((s,i)=> s + i.preco * i.qtd, 0); }
 
     function atualizarCarrinho(){
-      cartItems.innerHTML = '';
-      // Recarrega estado do storage para evitar divergência
+      if (cartItems) cartItems.innerHTML = '';
       carrinho = (typeof getCarrinho === 'function') ? getCarrinho() : carrinho;
-      carrinho.forEach(i => {
-        const el = document.createElement('div');
-        el.className = 'cart-item';
-        el.innerHTML = `
-          <div style="width:48px;height:48px;border-radius:10px;background:rgba(255,255,255,.06);display:grid;place-items:center">🛒</div>
-          <div class="meta">
-            <div style="font-weight:600">${i.nome}</div>
-            <div class="note">${R$(i.preco)} • Qtd: ${i.qtd}</div>
-          </div>
-          <div style="display:flex;gap:6px">
-            <button class="btn" title="Diminuir" onclick='alterarQtd(${JSON.stringify(i.id)}, -1)'>−</button>
-            <button class="btn" title="Aumentar" onclick='alterarQtd(${JSON.stringify(i.id)}, 1)'>+</button>
-            <button class="btn" title="Remover" onclick='removerItem(${JSON.stringify(i.id)})'>×</button>
-          </div>`;
-        cartItems.appendChild(el);
-      });
-      cartCount.textContent = carrinho.reduce((s,i)=> s + i.qtd, 0);
-      cartTotal.textContent = R$(total());
+      if (cartItems){
+        carrinho.forEach(i => {
+          const el = document.createElement('div');
+          el.className = 'cart-item';
+          el.innerHTML = `
+            <div style=\"width:48px;height:48px;border-radius:10px;background:rgba(255,255,255,.06);display:grid;place-items:center\">🛒</div>
+            <div class=\"meta\">
+              <div style=\"font-weight:600\">${i.nome}</div>
+              <div class=\"note\">${R$(i.preco)} • Qtd: ${i.qtd}</div>
+            </div>
+            <div style=\"display:flex;gap:6px\">
+              <button class=\"btn\" title=\"Diminuir\" onclick='alterarQtd(${JSON.stringify(i.id)}, -1)'>−</button>
+              <button class=\"btn\" title=\"Aumentar\" onclick='alterarQtd(${JSON.stringify(i.id)}, 1)'>+</button>
+              <button class=\"btn\" title=\"Remover\" onclick='removerItem(${JSON.stringify(i.id)})'>×</button>
+            </div>`;
+          cartItems.appendChild(el);
+        });
+      }
+      if (cartCount) cartCount.textContent = carrinho.reduce((s,i)=> s + i.qtd, 0);
+      if (cartTotal) cartTotal.textContent = R$(total());
       // salva via API comum
       salvarCarrinho();
     }
 
-    function abrirCarrinho(){ drawer.classList.add('open'); }
-    function fecharCarrinho(){ drawer.classList.remove('open'); }
+    function abrirCarrinho(){ if (drawer) drawer.classList.add('open'); }
+    function fecharCarrinho(){ if (drawer) drawer.classList.remove('open'); }
 
     document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('btn-carrinho').addEventListener('click', abrirCarrinho);
-    document.getElementById('fechar-carrinho').addEventListener('click', fecharCarrinho);
-    document.getElementById('btn-limpar').addEventListener('click', ()=>{ carrinho = []; atualizarCarrinho(); });
+      const btnCarrinho = document.getElementById('btn-carrinho');
+      if (btnCarrinho) btnCarrinho.addEventListener('click', abrirCarrinho);
+      const btnFechar = document.getElementById('fechar-carrinho');
+      if (btnFechar) btnFechar.addEventListener('click', fecharCarrinho);
+      const btnLimpar = document.getElementById('btn-limpar');
+      if (btnLimpar) btnLimpar.addEventListener('click', ()=>{ carrinho = []; atualizarCarrinho(); });
     });
 
-    // Ouve mudanças vindas de `carrinho.js` (ou de qualquer lugar que chame setCarrinho)
     window.addEventListener('carrinhoChanged', (e) => {
-      // atualiza estado local e render
       carrinho = Array.isArray(e.detail) ? e.detail : (typeof getCarrinho === 'function' ? getCarrinho() : carrinho);
       atualizarCarrinho();
-    });
-
-    // Garantir contador atualizado na inicialização
+    })
     if (typeof atualizarContadorCarrinho === 'function') atualizarContadorCarrinho();
 
 
     function checkout(){
-      // assegura estado atual do carrinho
       carrinho = (typeof getCarrinho === 'function') ? getCarrinho() : carrinho;
       if(!carrinho.length){ alert('Seu carrinho está vazio.'); return; }
       if(!usuarioLogado){ window.location.href = 'login.html'; return; }
@@ -224,14 +218,12 @@
       const order = {
         id: crypto.randomUUID(),
         usuario: usuarioLogado.email,
-        // preserva imagem se disponível (i.img ou i.imagem) para exibição no admin
         itens: carrinho.map(i=>({id:i.id,nome:i.nome,preco:i.preco,qtd:i.qtd,img: i.img || i.imagem || ''})),
         total: total(),
         data: new Date().toISOString()
       };
       compras.push(order);
       localStorage.setItem('compras', JSON.stringify(compras));
-      // Notifica listeners (ex: painel admin em outras abas) que houve uma nova compra
       try{ window.dispatchEvent(new CustomEvent('comprasChanged', { detail: compras })); }catch(e){}
       alert('Compra finalizada! Total: '+ R$(order.total));
       carrinho = []; atualizarCarrinho(); fecharCarrinho();
@@ -239,7 +231,7 @@
       if(usuarioLogado.tipo==='admin') carregarAdmin();
     }
 
-    document.getElementById('btn-checkout').addEventListener('click', checkout);
+    (function(){ const btnCheckout = document.getElementById('btn-checkout'); if (btnCheckout) btnCheckout.addEventListener('click', checkout); })();
 
     atualizarCarrinho();
 
@@ -290,19 +282,35 @@
 
     function renderAgendamentos(){
       const box = document.getElementById('lista-agendamentos');
-      if(!agendamentos.length){ box.textContent = 'Nenhum agendamento ainda.'; return; }
-      const ul = document.createElement('ul');
-      ul.style.listStyle = 'none'; ul.style.padding = '0';
-      agendamentos
-        .sort((a,b)=> (a.data+a.hora).localeCompare(b.data+b.hora))
-        .forEach(a => {
-          const li = document.createElement('li');
-          li.style.marginBottom = '10px';
-          li.innerHTML = `<strong>${a.data} • ${a.hora}</strong> — ${a.servico} (${a.disp})<br/><span class="note">Cliente: ${a.nome} — ${a.email || ''}</span> <button class="btn" style="margin-left:6px" onclick='cancelarAg(${JSON.stringify(a.id)})'>Cancelar</button>`;
-          ul.appendChild(li);
-        });
-      box.innerHTML = '';
-      box.appendChild(ul);
+      if (box){
+        if(!agendamentos.length){
+          box.textContent = 'Nenhum agendamento ainda.';
+        } else {
+          const ul = document.createElement('ul');
+          ul.style.listStyle = 'none'; ul.style.padding = '0';
+          agendamentos
+            .slice().sort((a,b)=> (a.data+a.hora).localeCompare(b.data+b.hora))
+            .forEach(a => {
+              const li = document.createElement('li');
+              li.style.marginBottom = '10px';
+              li.innerHTML = `<strong>${a.data} • ${a.hora}</strong> — ${a.servico} (${a.disp})<br/><span class=\"note\">Cliente: ${a.nome} — ${a.email || ''}</span> <button class=\"btn\" style=\"margin-left:6px;color:#111;background:transparent;border:none\" onclick='cancelarAg(${JSON.stringify(a.id)})'>Cancelar</button>`;
+              ul.appendChild(li);
+            });
+          box.innerHTML = '';
+          box.appendChild(ul);
+        }
+      }
+      const boxPerfil = document.getElementById('meus-agendamentos');
+      if (boxPerfil && usuarioLogado){
+        const meusAg = agendamentos.filter(a => a.email === usuarioLogado.email);
+        boxPerfil.innerHTML = meusAg.length
+          ? meusAg
+              .slice().sort((a,b)=> (a.data+a.hora).localeCompare(b.data+b.hora))
+              .map(a=> `<div class=\"pill\" style=\"display:block;margin-bottom:6px\">${a.data} • ${a.hora} — ${a.servico} (${a.disp})</div>`)
+              .join('')
+          : 'Nenhum agendamento ainda.';
+      }
+      try { carregarAdmin(); } catch(e) {}
     }
 
     function cancelarAg(id){
@@ -405,7 +413,6 @@
       ).join('') : 'Nenhum agendamento.';
     }
 
-    // Atualiza painel admin quando houver mudanças nas compras (ex: outra aba finalizou um pedido)
     window.addEventListener('comprasChanged', (e)=>{
       if(usuarioLogado && usuarioLogado.tipo==='admin') carregarAdmin();
     });

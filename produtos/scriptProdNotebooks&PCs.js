@@ -170,7 +170,7 @@ function addToCart(id, qty = 1){
     try { localStorage.setItem('cart_local', JSON.stringify(state.cart)); } catch(e){}
   }
   updateCartUI();
-  showMiniToast(`${prod.title} adicionado ao carrinho`);
+  // Notificação já exibida pela implementação comum do carrinho
 }
 
 /* comprar agora (simples simulação) */

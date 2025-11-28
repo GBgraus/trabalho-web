@@ -47,13 +47,23 @@ img{
     padding:0 20px
 }
 
-  header{
-    position:sticky;
-    top:0;
-    z-index:60;
-    background:#10182bbf;
-    backdrop-filter: blur(10px);
-    border-bottom:1px solid rgba(255,255,255,.06)
+header {
+  width: 100%;
+  padding: 20px 40px;
+  background: #10182b;
+  color: #fff;
+  margin-bottom: 40px; 
+  box-sizing: border-box;
+}
+
+header .grid {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header .col-6 {
+  flex: 0 0 auto;
 }
 
   .nav{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 0}
@@ -94,7 +104,6 @@ button {
   cursor:pointer
 }
 
-
 button:hover { 
   background:#769bf0; 
 }
@@ -108,7 +117,6 @@ button:hover {
   padding: 30px;          
 }
 
-/* layout principal: lista do carrinho + painel de total lado a lado */
 main{ 
   display:flex; 
   gap:24px; 
@@ -130,10 +138,8 @@ main{
   box-shadow: 0 6px 18px rgba(16,24,43,0.08);
 }
 
-/* styling for individual cart cards (renderizarCarrinho creates white cards) */
 .item-card{ background:#ffffff; padding:12px; border-radius:10px; box-shadow:0 2px 6px rgba(16,24,43,0.06); display:flex; gap:12px; align-items:center }
 
-/* card internal styles to match theme */
 .item-card img{ width:72px; height:72px; object-fit:cover; border-radius:8px }
 .item-card div { color:#111 }
 
@@ -142,7 +148,6 @@ main{
 .total-container .btn-primary{ background: rgba(255,255,255,0.95); color:#4b0082 }
 .total-container .btn-ghost{ background:transparent; color:#fff; border:1px solid rgba(255,255,255,0.12) }
 
-/* preview block (compact, professional) */
 #cart-preview{ font-size:13px; color:#333; max-height:220px; overflow:auto; border-radius:8px; }
 
 .toggle { 
@@ -152,22 +157,22 @@ main{
   color:#ffffff; 
 }
 
-footer{
-  width: 100vw;
-  margin-top: auto;
-  border-top:1px solid #ffffff14;
-  background-color: #0b1223;
-  padding:30px 0;
-  color: #f1f1f1;
-  box-sizing: border-box;
-  position: relative;
-  padding: 20px 40px;
+/* ==================== */
+/* FOOTER */
+/* ==================== */
+footer {
+    background: #10182b;
+    color: #fff;
+    text-align: left;
+    padding: 15px;
+    font-size: 0.9rem;
+    margin-top: auto; 
+    width: 100%;
+    border-top:1px solid rgba(255,255,255,0.06);
+    box-sizing: border-box;
+    padding: 25px 40px;
 }
 
-header, footer {
-  background: #10182b ;  
-  color: #e6ebf5;          
-}
 
 .note {
     font-size:12px;color:var(--muted)

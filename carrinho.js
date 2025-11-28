@@ -1,16 +1,67 @@
-// carrinho.js — funciona em todas as páginas
+(function installToast(){
+  if (window.__toastInstalled) return;
+  const containerId = 'toast-container-global';
+  function ensureContainer(){
+    let c = document.getElementById(containerId);
+    if (!c){
+      c = document.createElement('div');
+      c.id = containerId;
+      c.setAttribute('aria-live','polite');
+      c.style.position = 'fixed';
+      c.style.zIndex = '9999';
+      c.style.right = '16px';
+      c.style.bottom = '16px';
+      c.style.display = 'flex';
+      c.style.flexDirection = 'column';
+      c.style.gap = '8px';
+      c.style.pointerEvents = 'none';
+      document.body.appendChild(c);
+    }
+    return c;
+  }
+  function showToast(message, duration=3000){
+    try{
+      const container = ensureContainer();
+      const t = document.createElement('div');
+      t.role = 'status';
+      t.style.background = '#111';
+      t.style.color = '#fff';
+      t.style.padding = '10px 12px';
+      t.style.borderRadius = '10px';
+      t.style.boxShadow = '0 6px 18px rgba(0,0,0,0.35)';
+      t.style.fontSize = '14px';
+      t.style.maxWidth = '320px';
+      t.style.pointerEvents = 'auto';
+      t.style.opacity = '0';
+      t.style.transform = 'translateY(6px)';
+      t.style.transition = 'opacity .2s ease, transform .2s ease';
+      t.textContent = String(message || '');
+      // fechar ao clicar
+      t.addEventListener('click', ()=>{ t.style.opacity='0'; t.style.transform='translateY(6px)'; setTimeout(()=> t.remove(), 200); });
+      container.appendChild(t);
+      requestAnimationFrame(()=>{ t.style.opacity = '1'; t.style.transform = 'translateY(0)'; });
+      setTimeout(()=>{
+        t.style.opacity = '0';
+        t.style.transform = 'translateY(6px)';
+        setTimeout(()=> t.remove(), 220);
+      }, Math.max(1500, duration|0));
+    }catch(e){ /* fallback */ window.alert(message); }
+  }
+  window.alert = showToast; 
+  window.showToast = showToast; 
+  window.__toastInstalled = true;
+})();
 
-// Função para obter carrinho do localStorage
 // Função para obter carrinho do localStorage
 function getCarrinho() {
   const raw = JSON.parse(localStorage.getItem('carrinho') || '[]');
-  // normaliza chaves variadas vindas de outros scripts
+
   return raw.map(item => ({
     id: item.id,
     nome: item.nome || item.title || item.name || item.id,
     preco: (item.preco ?? item.price ?? item.valor ?? 0),
     qtd: (item.qtd ?? item.qty ?? item.quantidade ?? 1),
-    // preserva demais campos por precaução
+
     _raw: item
   }));
 }
@@ -35,11 +86,11 @@ function setCarrinho(carrinho) {
     img: i.img || i.imagem || (i._raw && (i._raw.img || i._raw.imagem)) || ''
   }));
   localStorage.setItem('carrinho', JSON.stringify(normalized));
-  // Notifica outras partes da aplicação que o carrinho mudou (envia versão normalizada)
+ 
   try {
     window.dispatchEvent(new CustomEvent('carrinhoChanged', { detail: normalized }));
   } catch (e) {
-    // browsers antigos podem falhar ao criar CustomEvent — ignora
+
   }
 }
 
@@ -64,7 +115,7 @@ function adicionarProduto(id, nome, preco, quantidade = 1, img = '') {
     // se já não tiver imagem e foi fornecida, atualiza
     if ((!existente.img || existente.img === '') && img) existente.img = img;
   } else {
-    // tenta obter imagem automaticamente a partir do catálogo se não foi passada
+  
     let resolvedImg = img || '';
     try {
       if (!resolvedImg && typeof PRODUCTS !== 'undefined' && Array.isArray(PRODUCTS)) {
@@ -72,7 +123,7 @@ function adicionarProduto(id, nome, preco, quantidade = 1, img = '') {
         if (p && (p.img || p.imagem)) resolvedImg = p.img || p.imagem;
       }
     } catch (e) { /* ignore */ }
-    // armazena com chaves 'nome', 'preco', 'qtd' e opcional 'img'
+ 
     carrinho.push({ id, nome, preco, qtd: quantidade, img: resolvedImg });
   }
 
@@ -82,18 +133,18 @@ function adicionarProduto(id, nome, preco, quantidade = 1, img = '') {
   try { alert(`${nome} foi adicionado ao carrinho!`); } catch (e) {}
 }
 
-// Renderizar carrinho na página carrinho.html
+
 function renderizarCarrinho() {
   const container = document.getElementById('cart-container');
-  if (!container) return; // não está na página de carrinho
+  if (!container) return; 
   const carrinho = getCarrinho();
 
-  // se vazio
+
   if (!Array.isArray(carrinho) || carrinho.length === 0) {
     container.innerHTML = "<div style='padding:20px;background:#fff;border-radius:12px'>\n      <h3 style=\"margin:0 0 8px;color:#111\">Seu carrinho está vazio 🛒</h3>\n      <div style=\"color:#666\">Adicione produtos nas páginas de catálogo para vê-los aqui.</div>\n    </div>";
   const totalEl = document.getElementById('cart-total');
     if (totalEl) totalEl.textContent = formatCurrency(0);
-    // atualizar diagnóstico visível
+
     try{
       let diag = document.getElementById('cart-diagnostic');
       const totalContainer = document.querySelector('.total-container');
@@ -175,7 +226,13 @@ function renderizarCarrinho() {
 
     const btnDec = document.createElement('button');
     btnDec.textContent = '−';
-    btnDec.style.padding = '6px 10px';
+    btnDec.style.width = '36px';
+    btnDec.style.height = '36px';
+    btnDec.style.padding = '0';
+    btnDec.style.display = 'grid';
+    btnDec.style.placeItems = 'center';
+    btnDec.style.fontSize = '18px';
+    btnDec.style.lineHeight = '1';
     btnDec.style.borderRadius = '8px';
     btnDec.style.border = 'none';
     btnDec.style.background = '#eee';
@@ -189,7 +246,13 @@ function renderizarCarrinho() {
 
     const btnInc = document.createElement('button');
     btnInc.textContent = '+';
-    btnInc.style.padding = '6px 10px';
+    btnInc.style.width = '36px';
+    btnInc.style.height = '36px';
+    btnInc.style.padding = '0';
+    btnInc.style.display = 'grid';
+    btnInc.style.placeItems = 'center';
+    btnInc.style.fontSize = '18px';
+    btnInc.style.lineHeight = '1';
     btnInc.style.borderRadius = '8px';
     btnInc.style.border = 'none';
     btnInc.style.background = '#7364ec';
@@ -199,10 +262,15 @@ function renderizarCarrinho() {
 
     const removeBtn = document.createElement('button');
     removeBtn.textContent = 'Remover';
-    removeBtn.style.padding = '6px 10px';
+    removeBtn.style.padding = '4px 8px';
     removeBtn.style.borderRadius = '8px';
-    removeBtn.style.border = '1px solid #f3f3f3';
-    removeBtn.style.background = '#fff';
+    removeBtn.style.border = '1px solid #dddddd';
+    removeBtn.style.background = '#ffffff';
+    removeBtn.style.color = '#111111';
+    removeBtn.style.fontWeight = '600';
+    removeBtn.style.fontSize = '12px';
+    removeBtn.style.width = 'auto';
+    removeBtn.style.display = 'inline-block';
     removeBtn.style.cursor = 'pointer';
     removeBtn.addEventListener('click', ()=> removerItem(item.id));
 
@@ -216,8 +284,8 @@ function renderizarCarrinho() {
   subtotalDiv.textContent = formatCurrency(subtotal);
 
     actions.appendChild(qtyRow);
-    actions.appendChild(subtotalDiv);
     actions.appendChild(removeBtn);
+    actions.appendChild(subtotalDiv);
 
     card.appendChild(img);
     card.appendChild(info);
@@ -226,21 +294,20 @@ function renderizarCarrinho() {
     wrapper.appendChild(card);
   });
 
-  // escreve no container
   container.innerHTML = '';
   container.appendChild(wrapper);
 
-  // fallback: se total calculado for zero ou NaN, tente somar usando os valores brutos do localStorage (suporta vírgula)
+  // fallback: se total calculado for zero ou NaN tenta somar usando os valores brutos do localStorage
   function _parseNumberLoose(v){
     if (typeof v === 'number') return v || 0;
     if (!v && v!==0) return 0;
     let s = String(v).trim();
-    // remove prefix 'R$' e espaços
+ 
     s = s.replace(/R\$|\s/g,'');
-    // se contém '.' e ',', assume '.' milhares e ',' decimal -> remove '.' e replace ','->'.'
+
     if (s.indexOf('.') !== -1 && s.indexOf(',') !== -1){ s = s.replace(/\./g,'').replace(/,/g,'.'); }
     else if (s.indexOf(',') !== -1 && s.indexOf('.') === -1){ s = s.replace(/,/g,'.'); }
-    // remove any non numeric except dot and minus
+ 
     s = s.replace(/[^0-9.\-]/g,'');
     const n = Number(s);
     return isNaN(n)? 0 : n;
@@ -262,7 +329,7 @@ function renderizarCarrinho() {
 
   const totalEl = document.getElementById('cart-total');
   if (totalEl) totalEl.textContent = formatCurrency(total);
-  // atualizar um diagnóstico visível para usuários que não conseguem abrir DevTools
+
   try {
     let diag = document.getElementById('cart-diagnostic');
     const totalContainer = document.querySelector('.total-container');
@@ -315,15 +382,15 @@ function limparCarrinho() {
   atualizarContadorCarrinho();
 }
 
+// Finalizar compra (garante que o carrinho atual já esteja salvo e redireciona)
+function finalizarCompra(){
+  try { atualizarContadorCarrinho(); } catch(e){}
+  window.location.href = 'pagamento/pagamento.html';
+}
 
-
-
-
-// Eventos dos botões (só se existirem na página)
 document.getElementById('btn-limpar')?.addEventListener('click', limparCarrinho);
 document.getElementById('btn-finalizar')?.addEventListener('click', finalizarCompra);
 
-// Inicializa UI do carrinho assim que o DOM estiver pronto e também escuta mudanças
 function _initCarrinhoUI(){
   try{ renderizarCarrinho(); } catch(e){}
   try{ atualizarContadorCarrinho(); } catch(e){}

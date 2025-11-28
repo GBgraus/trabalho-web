@@ -1,11 +1,11 @@
 /* ======= JSON de produtos (amostrais) ======= */
 const PRODUCTS = [
   { id: "p1", title: "Memória Notebook Adata 8GB,", price: 135.90, oldPrice:179.90, rating:4.5,
-    img:"../img/memoriaadata.jpeg",
+    img:"../img/MemóriaNotebook.jpg",
     category:"ADATA",
     desc:"- Densidades: 8 GB - Velocidades: 3200 MHz - Latência: CL22 - Módulo: DIMM de 260 pinos - Fonte de alimentação: VDD e VDDQ=1,2V +0,06/-0,06V - Fonte de alimentação de ativação de DRAM: VPP = 2,5 V (+0,25 V / -0,125 V) - DRAM VCC: DDR4 STD 1,2 V - Suporta Intel Core 10ª séries - Temperatura de operação: 0°C a 85°C. - Latência CL22, proporcionando resposta rápida e eficiente em operações de memória. - Módulo DIMM de 260 pinos, garantindo compatibilidade com notebooks modernos."},
   { id: "p2", title: "SSD ADATA SU650 240GB", price: 197.52, oldPrice:235.90, rating:4.8,
-    img:"../img/SSDAdata,jpeg.jpeg",
+    img:"../img/SSDAdatajpeg.jpeg",
     category:"ADATA",
     desc:"Sobre este item: O drive de estado sólido Ultimate SU630 implementa 3D NAND Flash e um controlador de alta velocidade, oferecendo capacidade de 240GB. Oferece desempenho de leitura / gravação de até 520 / 450MB / s e maior confiabilidade do que os SSDs NAND 2D. O SU630 possui armazenamento em cache SLC e tecnologias avançadas de correção de erros para garantir desempenho e integridade otimizados dos dados. Para aqueles que desejam experimentar uma atualização clara do PC, o SU630 é uma excelente op."},
   { id: "p3", title: "Kit Upgrade", price: 354.40, oldPrice:396.09, rating:4.7,
@@ -22,17 +22,17 @@ const PRODUCTS = [
     desc:"- Sistema operacional compatível: Win7-64bit, Win10-64bit, Win11-64bit, Linux. - Memória: 4GB GDDR5. - Modelo: PCYES RX550. - Memory Clock: 6000MHz."},
   
   { id: "p7", title: "Placa de vídeo GeForce RTX 5060 Ti", price: 2349.99, oldPrice:2485.00, rating:4.8,
-    img:"../img/placagiga.jpeg",
+    img:"../img/PlacadevídeoGeForce.jpg",
     category:"GIGABYTE",
     desc:"- Alimentado pela arquitetura NVIDIA Blackwell e DLSS 4. - Alimentado por GeForce RTX 5060 Ti. - Sistema de refrigeração WINDFORCE."},
   
   { id: "p8", title: " Fifine AmpliGame Placa de captura de vídeo, HD", price: 368.40, oldPrice:397.99, rating:4.5,
-    img:"../img/placacapvideoFIFINE.jpeg",
+    img:"../img/FifinePlaca.jpg",
     category:"FIFINE",
     desc:"- HD 1080 60fps para áudio e vídeo, jogos, transmissão ao vivo. - 4K HDMI para placa de captura USB compatível com PS4/Windows/Mac OS/Switch/Xbox-V3."},
 
   { id: "p9", title: "Cooler Fan", price: 49.00, oldPrice:57.72, rating:4.5,
-    img:"../img/Coolermymax.jpeg",
+    img:"../img/CoolerFan.jpg",
     category:"MyMax",
     desc: "- COOLER P/GAB. MYMAX STORM II 120X120 AZUL. - Produtos desenvolvidos com materiais resistêntes de alta tecnologia. - Produto com garantia contra defeitos de fabricação. - Verifique o modelo de compatibilidade do produto."},
   
@@ -42,7 +42,7 @@ const PRODUCTS = [
     desc:"- Cache: 64 MB. - RPM: 7200. - SATA 6Gb/s. - O HD é compatível com qualquer sistema operacional existente hoje. "},
   
   { id: "p11", title: "Nobreak Interativo 120 Volts", price: 879.99, oldPrice:929.90, rating:4.6,
-    img:"../img/nobreakintel.jpeg",
+    img:"../img/fonteestabilizada.jpeg",
     category:"Intelbras",
     desc:"- O ATTIV 1200 VA oferece proteção e autonomia para eletrônicos simples, como TVs, desktops, modems, roteadores, câmeras e DVRs. - Com design moderno e diferenciado, o ATTIV 1200 VA se adequa a ambientes domésticos e corporativos, permitindo uso em posições vertical ou horizontal."},
 
@@ -64,6 +64,11 @@ let state = {
   cart: [],
   selected: null
 };
+
+// se existir API compartilhada, inicializa o cart local a partir dela
+if (typeof getCarrinho === 'function') {
+  try { state.cart = getCarrinho(); } catch (e) { state.cart = []; }
+}
 
 /* DOM refs */
 const grid = document.getElementById('productGrid');
@@ -163,14 +168,17 @@ function selectProduct(id){
 /* adicionar ao carrinho */
 function addToCart(id, qty = 1){
   const prod = state.products.find(x=>x.id===id);
-  const found = state.cart.find(i=>i.id===id);
-  if(found){
-    found.qty += qty;
+  if (!prod) return;
+  if (typeof adicionarProduto === 'function'){
+    // passar título como nome, preço como preco e imagem (quando disponível) para a API comum
+    adicionarProduto(prod.id, prod.title || prod.nome || prod.id, prod.price || prod.preco || 0, qty, prod.img || prod.imagem || '');
   } else {
-    state.cart.push({ id:prod.id, title:prod.title, price:prod.price, img:prod.img, qty });
+    const found = state.cart.find(i=>i.id===id);
+    if(found) found.qty += qty; else state.cart.push({ id:prod.id, title:prod.title, price:prod.price, img:prod.img, qty });
+    try { localStorage.setItem('cart_local', JSON.stringify(state.cart)); } catch(e){}
   }
   updateCartUI();
-  showMiniToast(`${prod.title} adicionado ao carrinho`);
+  // Notificação já exibida pela implementação comum do carrinho
 }
 
 /* comprar agora (simples simulação) */
@@ -181,16 +189,27 @@ function buyNow(id, qty=1){
 
 /* atualizar UI do carrinho */
 function updateCartUI(){
-  cartCount.textContent = state.cart.reduce((s,i)=>s+i.qty,0);
-  // fill cart modal
+  // preferir carrinho compartilhado
+  const shared = (typeof getCarrinho === 'function') ? getCarrinho() : null;
+  const cart = Array.isArray(shared) ? shared : state.cart;
+  const normalize = (item) => ({
+    id: item.id,
+    title: item.title || item.nome || item.id,
+    price: item.price || item.preco || item.valor || 0,
+    img: item.img || item.imagem || '',
+    qty: item.qtd || item.qty || 1
+  });
+
+  const normalized = cart.map(normalize);
+  cartCount.textContent = normalized.reduce((s,i)=>s+i.qty,0);
   cartItemsDiv.innerHTML = '';
-  if(state.cart.length===0){
+  if(normalized.length===0){
     cartItemsDiv.innerHTML = `<div class="cart-empty">Seu carrinho está vazio.</div>`;
     cartFooter.innerHTML = '';
     return;
   }
   let total = 0;
-  state.cart.forEach(item=>{
+  normalized.forEach(item=>{
     total += item.price * item.qty;
     const div = document.createElement('div');
     div.className = 'cart-item';
@@ -206,8 +225,8 @@ function updateCartUI(){
     `;
     cartItemsDiv.appendChild(div);
     div.querySelector('[data-remove]').addEventListener('click', ()=>{
-      state.cart = state.cart.filter(c=>c.id!==item.id);
-      updateCartUI();
+      if (typeof removerItem === 'function') removerItem(item.id);
+      else { state.cart = state.cart.filter(c=>c.id!==item.id); updateCartUI(); }
     });
   });
   cartFooter.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px">
@@ -217,8 +236,20 @@ function updateCartUI(){
     <button id="checkoutBtn" style="flex:1;padding:10px;border-radius:8px;border:none;background:var(--accent);color:#fff;cursor:pointer">Finalizar compra</button>
     <button id="clearCart" style="padding:10px;border-radius:8px;border:1px solid #eee;background:#fff;cursor:pointer">Limpar</button>
   </div>`;
-  document.getElementById('checkoutBtn').addEventListener('click', ()=>{ alert('Checkout simulado. Integrar PSP para finalizar.'); });
-  document.getElementById('clearCart').addEventListener('click', ()=>{ state.cart = []; updateCartUI(); });
+  document.getElementById('checkoutBtn').addEventListener('click', ()=>{
+    // garante que o carrinho está no formato esperado por carrinho.js (localStorage 'carrinho')
+    if (typeof getCarrinho !== 'function'){
+      // temos um fallback local 'cart_local' usado quando não há API comum
+      const local = JSON.parse(localStorage.getItem('cart_local') || '[]');
+      if (local && local.length){
+        const normalized = local.map(i => ({ id: i.id, nome: i.title || i.nome || i.id, preco: i.price || i.preco || 0, qtd: i.qty || i.qtd || 1 }));
+        localStorage.setItem('carrinho', JSON.stringify(normalized));
+      }
+    }
+    // navega para a página do carrinho (pasta produtos -> voltar uma pasta)
+    window.location.href = '../carrinho.html';
+  });
+  document.getElementById('clearCart').addEventListener('click', ()=>{ if(typeof limparCarrinho==='function') limparCarrinho(); else { state.cart = []; updateCartUI(); } });
 }
 
 /* mini toast */
@@ -264,3 +295,6 @@ document.getElementById('closeCart').addEventListener('click', ()=>{ cartModal.s
 /* inicializa */
 renderGrid(state.products);
 updateCartUI();
+
+
+
