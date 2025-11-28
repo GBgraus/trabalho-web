@@ -47,26 +47,26 @@
           <i class="fab fa-paypal"></i>
           <p>PayPal</p>
         </div>
-      </div>
+
 
       <div id="detalhes-pagamento">
         <h3>Detalhes do Pagamento - PIX</h3>
         <p>Escaneie o QR Code abaixo ou copie e cole a chave para finalizar o pagamento.</p>
         <div style="text-align:center; margin: 20px 0;">
-          <img src="../img/qrcodepix.jpg" alt="QR Code PIX" style="width:150px; height:150px; border:1px solid #ccc; border-radius:10px;">
+          <img src="../img/placeholder_qrcode.png" alt="QR Code PIX" style="width:150px; height:150px; border:1px solid #ccc; border-radius:10px;">
           <p style="margin-top: 10px; font-size: 0.9em; font-weight: 600;">Chave PIX: 123.456.789-00</p>
         </div>
       </div>
+      </div>
 
       <div class="btn-config">
-    <button id="btn-finalizar" type="button" class="btn btn-confirmar">
+      <button class="btn btn-confirmar" onclick="confirmPayment()">
         Confirmar Pagamento
       </button>
 
       <button class="btn btn-voltar" onclick="window.location.href='../Index.html'">Voltar para a página inicial</button>
       </div>
     </div>
-    </section>
   </section>
 
   <footer>
@@ -84,7 +84,105 @@
     </div>
   </footer>
 
-  <script src="scriptPagamento.js"></script>
-  <script src="../carrinho.js"></script>
-</body>
-</html>
+    <script>
+        // Função para simular a troca de formulários conforme a opção clicada
+        document.querySelectorAll('.opcao-item').forEach(item => {
+            item.addEventListener('click', function() {
+                // Remove 'active' de todos e adiciona no clicado
+                document.querySelectorAll('.opcao-item').forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
+
+                const metodo = this.getAttribute('data-metodo');
+                const detalhesDiv = document.getElementById('detalhes-pagamento');
+                let htmlContent = '';
+
+                // Simulação de conteúdo dinâmico
+                switch(metodo) {
+                    case 'pix':
+                        htmlContent = `
+                            <h3>Detalhes do Pagamento - PIX</h3>
+                            <p>Escaneie o QR Code abaixo ou copie e cole a chave para finalizar o pagamento de R$ 149,00.</p>
+                            <div style="text-align:center; margin: 20px 0;">
+                                <img src="placeholder_qrcode.png" alt="QR Code PIX" style="width: 150px; height: 150px; border: 1px solid #ddd;">
+                                <p style="margin-top: 10px; font-size: 0.9em; font-weight: 600;">Chave PIX: 123.456.789-00</p>
+                            </div>
+                        `;
+                        break;
+                    case 'credito':
+                    case 'debito':
+                        const tipo = metodo === 'credito' ? 'Crédito' : 'Débito';
+                        htmlContent = `
+                            <h3>Detalhes do Cartão de ${tipo}</h3>
+                            <div class="input-group-pag">
+                                <label for="numero-cartao">Número do Cartão</label>
+                                <input type="text" id="numero-cartao" placeholder="0000 0000 0000 0000">
+                            </div>
+                            <div class="input-group-pag">
+                                <label for="nome-cartao">Nome no Cartão</label>
+                                <input type="text" id="nome-cartao" placeholder="Nome Completo">
+                            </div>
+                            <div class="form-row">
+                                <div class="input-group-pag">
+                                    <label for="validade">Validade</label>
+                                    <input type="text" id="validade" placeholder="MM/AA">
+                                </div>
+                                <div class="input-group-pag">
+                                    <label for="cvv">CVV</label>
+                                    <input type="text" id="cvv" placeholder="123">
+                                </div>
+                            </div>
+                        `;
+                        break;
+                    case 'paypal':
+                        htmlContent = `
+                            <h3>Pagar com PayPal</h3>
+                            <p>Ao clicar em "Confirmar Pagamento", você será redirecionado para a página segura do PayPal para finalizar sua transação.</p>
+                            <img src="placeholder_paypal.png" alt="PayPal Logo" style="width: 150px; margin: 20px auto; display: block;">
+                        `;
+                        break;
+                }
+
+                detalhesDiv.innerHTML = htmlContent;
+            });
+        });
+    </script>
+
+    <script>
+      // Confirma o pagamento: cria um pedido em localStorage.compras.
+      function confirmPayment(){
+        const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado') || 'null');
+        const usuario = usuarioLogado ? usuarioLogado.email : 'cliente@local';
+
+        // Se houver um carrinho salvo, usa seus itens; caso contrário cria um item de resumo/assinatura
+        const carrinho = JSON.parse(localStorage.getItem('carrinho') || '[]');
+        let itens = [];
+        let total = 0;
+        if(Array.isArray(carrinho) && carrinho.length){
+          itens = carrinho.map(i => ({ id: i.id, nome: i.nome || i.title || 'Produto', preco: Number(i.preco) || parseFloat(String(i.preco).replace(/\./g,'').replace(',','.')) || 0, qtd: i.qtd || i.quantidade || 1, img: i.img || i.imagem || '' }));
+          total = itens.reduce((s,it) => s + (Number(it.preco) || 0) * (Number(it.qtd)||0), 0);
+        } else {
+          const urlParams = new URLSearchParams(window.location.search);
+          const plano = urlParams.get('plano') || 'Premium';
+          const precoStr = urlParams.get('preco') || '149,00';
+          const preco = parseFloat(String(precoStr).replace(/\./g,'').replace(',','.')) || 149.00;
+          itens = [{ id: 'plano-' + plano.toLowerCase().replace(/\s+/g,'-'), nome: 'Assinatura ' + plano, preco: preco, qtd: 1, img: '../img/logo.png' }];
+          total = preco;
+        }
+
+        const compras = JSON.parse(localStorage.getItem('compras') || '[]');
+        const order = {
+          id: (typeof crypto !== 'undefined' && crypto.randomUUID) ? crypto.randomUUID() : ('order-' + Date.now()),
+          usuario: usuario,
+          itens: itens,
+          total: total,
+          data: new Date().toISOString()
+        };
+        compras.push(order);
+        localStorage.setItem('compras', JSON.stringify(compras));
+        try{ window.dispatchEvent(new CustomEvent('comprasChanged', { detail: compras })); }catch(e){}
+
+        alert('Pagamento simulado. Compra confirmada! Total: ' + total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }));
+        // redireciona para a página principal
+        window.location.href = '../Index.html';
+      }
+    </script>

@@ -292,3 +292,5 @@ document.getElementById('closeCart').addEventListener('click', ()=>{ cartModal.s
 renderGrid(state.products);
 updateCartUI();
 
+
+

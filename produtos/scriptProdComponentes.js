@@ -1,44 +1,61 @@
 /* ======= JSON de produtos (amostrais) ======= */
 const PRODUCTS = [
-    { id: "p1", title: "Roteador Mercusys Mr60x, WIFI, 6 Ax1500 Dual Band, Gigabit", price: 129.90 , oldPrice: 143.94, rating:4.5,
-  img:"../img/RoteadorMercusysMr60x.jpg",
-  category:"Roteadores",
-    desc:"O roteador padrão wi-fi 6 mais recente traz tecnologia avançada para proporcionar uma experiência wireless de alta performance. Com o mr60x, você obtém velocidades gigabit ultrarrápidas de até 1500 mbps, com 1201 mbps em 5 ghz e 300 mbps em 2,4 ghz, ideal para jogos online e streaming em 4k. Além disso, o wi-fi 6 melhora a capacidade da rede para suportar a crescente demanda de dados, permitindo a transmissão simultânea entre vários dispositivos e aumentando a eficiência da sua rede wi-fi. As quatro antenas de alto ganho e a tecnologia de beamforming garantem sinais fortes e conexões estáveis em toda a sua casa. " },
-    { id: "p2", title: "Roteador Wi-fi W5", price: 181.99 , oldPrice: 198.00, rating:4.6,
-  img:"../img/Roteadorw5.jpg",
-  category:"Roteadores",
-  desc:"COBERTURA AMPLA COM QUATRO ANTENAS EXTERNAS -O W5-1200GS conta com quatro antenas externas, que ampliam o alcance e a estabilidade do sinal Wi-Fi, proporcionando melhor cobertura mesmo em ambientes com barreiras físicas."},
-   { id: "p3", title: "TP-Link Switch Gigabit De Mesa Com 8 Portas", price: 131.90 , oldPrice: 150.00, rating:4.8,
-  img:"../img/switch8portas.jpg",
-  category:"Switch",
-  desc:" O TP-Link Switch Gigabit de Mesa com 8 Portas (modelo LS1008G) é uma solução confiável e eficiente para expandir sua rede com fio. Suporta dispositivos como computadores, impressoras e webcams, sendo adequado para diversos cenários, como residências e pequenas empresas."},
-   { id: "p4", title: "Repetidor de sinal Wi-Fi TP-Link TL-WA850RE", price: 96.90 , oldPrice: 120.00, rating:4.6,
-  img:"../img/Repetidordesinal.jpg",
-  category:"Repetidores",
-  desc:" Conecta-se ao roteador via wireless, expandindo e fortalecendo o sinal em áreas não alcançadas anteriormente.Oferece uma velocidade de até 300Mbps, ideal para navegação estável e rápida. "},
-   { id: "p5", title: "UGREEN Cabo Ethernet Cat 8", price: 60.99 , oldPrice: 75.00, rating:4.8,
-  img:"../img/UGREENCaboEthernetCat 8.jpg",
-  category:"Cabos",
-  desc:"UGREEN Cabo Ethernet Cat 8 15 pés, cabo de rede trançado de alta velocidade de 40 Gbps 2000 MHz Cat8 RJ45 Cabos LAN blindados para serviços pesados internos compatíveis para jogos PC PS5 PS4."},
-  { id: "p6", title: "Cabo de Rede Lan Rj45", price: 53.88 , oldPrice: 60.00, rating:4.8,
-  img:"../img/CabodeRedeLanRj45.jpg",
-  category:"Cabos",
-  desc:"Alta Velocidade de Transferência até 10Gbps: Este cabo Cat6 da oferece uma impressionante velocidade de transferência de até 10Gbps, ideal para tarefas que exigem alta largura de banda como streaming de vídeo em alta definição e jogos online."},
-   { id: "p7", title: "Hub USB 3.0 Com 7 Portas", price: 29.90 , oldPrice: 35.00, rating:4.7,
-  img:"../img/HubUSB3.0Com7Portas.jpg",
-  category:"Hubs",
-  desc:"Super Velocidade de Transferência (USB 3.0) Com tecnologia USB 3.0, transfira arquivos a até 5 Gbps — até 10x mais rápido que USB 2.0! Ideal para HDs externos, pendrives, impressoras e muito mais.."},
-   { id: "p8", title: "Repetidor de Sinal Wi-Fi 1800m Premium", price: 34.70 , oldPrice: 40.00, rating:4.1,
-  img:"../img/RepetidordeSinalWi-Fi1800mPremium.jpg",
-  category:"Repetidores",
-  desc:"  COBERTURA AMPLIADA EM TODO O AMBIENTE – Leve conexão rápida e estável para cada canto da sua casa, escritório ou empresa, sem pontos sem sinal."},
-   { id: "p9", title: "MERCUSYS MS105G ", price: 64.90, oldPrice: 100.00, rating:4.8,
-  img:"../img/MERCUSYSMS105G.jpg",
-  category:"switch",
-   desc:"Hub switch 5 ptos mercusys 10/100/1000 ms105g 5ptos/rj45/plug and play ms105g,extensão fácil - conecte dispositivos humanos via cabo RJ45 design pequeno - design compacto para instalação flexível sem ocupar muito espaço"},
-     ];
-    
-    
+  { id: "p1", title: "Memória Notebook Adata 8GB,", price: 135.90, oldPrice:179.90, rating:4.5,
+    img:"../img/memoriaadata.jpeg",
+    category:"ADATA",
+    desc:"- Densidades: 8 GB - Velocidades: 3200 MHz - Latência: CL22 - Módulo: DIMM de 260 pinos - Fonte de alimentação: VDD e VDDQ=1,2V +0,06/-0,06V - Fonte de alimentação de ativação de DRAM: VPP = 2,5 V (+0,25 V / -0,125 V) - DRAM VCC: DDR4 STD 1,2 V - Suporta Intel Core 10ª séries - Temperatura de operação: 0°C a 85°C. - Latência CL22, proporcionando resposta rápida e eficiente em operações de memória. - Módulo DIMM de 260 pinos, garantindo compatibilidade com notebooks modernos."},
+  { id: "p2", title: "SSD ADATA SU650 240GB", price: 197.52, oldPrice:235.90, rating:4.8,
+    img:"../img/SSDAdata,jpeg.jpeg",
+    category:"ADATA",
+    desc:"Sobre este item: O drive de estado sólido Ultimate SU630 implementa 3D NAND Flash e um controlador de alta velocidade, oferecendo capacidade de 240GB. Oferece desempenho de leitura / gravação de até 520 / 450MB / s e maior confiabilidade do que os SSDs NAND 2D. O SU630 possui armazenamento em cache SLC e tecnologias avançadas de correção de erros para garantir desempenho e integridade otimizados dos dados. Para aqueles que desejam experimentar uma atualização clara do PC, o SU630 é uma excelente op."},
+  { id: "p3", title: "Kit Upgrade", price: 354.40, oldPrice:396.09, rating:4.7,
+    img:"../img/kitintelcore.jpeg",
+    category:"Intel Core",
+    desc:"Kit Upgrade - Intel Core i5-3470 + Placa Mãe B75 Lga 1155 + 16GB Ram DDR3."},
+  { id: "p4", title: "Processador AMD Ryzen 7 5700X 3.4GHz (TURBO 4.6GHz)", price: 1098.99, oldPrice:1192.99, rating:4.3,
+    img:"../img/processadorAMD.jpeg",
+    category:"AMD",
+    desc:"- Pode oferecer desempenho ultrarrápido de 100 FPS nos jogos mais populares do mundo, placa gráfica discreta necessária. - 8 núcleos e 16 fios de processamento. - Cooler não incluído."},
+  { id: "p5", title: "GPU RX 550 4GB Dual-Fan Projeto Edge", price: 549.00, oldPrice:639.00, rating:4.8,
+    img:"../img/GPUPcyes.jpeg",
+    category:"Pcyes",
+    desc:"- Sistema operacional compatível: Win7-64bit, Win10-64bit, Win11-64bit, Linux. - Memória: 4GB GDDR5. - Modelo: PCYES RX550. - Memory Clock: 6000MHz."},
+  
+  { id: "p7", title: "Placa de vídeo GeForce RTX 5060 Ti", price: 2349.99, oldPrice:2485.00, rating:4.8,
+    img:"../img/placagiga.jpeg",
+    category:"GIGABYTE",
+    desc:"- Alimentado pela arquitetura NVIDIA Blackwell e DLSS 4. - Alimentado por GeForce RTX 5060 Ti. - Sistema de refrigeração WINDFORCE."},
+  
+  { id: "p8", title: " Fifine AmpliGame Placa de captura de vídeo, HD", price: 368.40, oldPrice:397.99, rating:4.5,
+    img:"../img/placacapvideoFIFINE.jpeg",
+    category:"FIFINE",
+    desc:"- HD 1080 60fps para áudio e vídeo, jogos, transmissão ao vivo. - 4K HDMI para placa de captura USB compatível com PS4/Windows/Mac OS/Switch/Xbox-V3."},
+
+  { id: "p9", title: "Cooler Fan", price: 49.00, oldPrice:57.72, rating:4.5,
+    img:"../img/Coolermymax.jpeg",
+    category:"MyMax",
+    desc: "- COOLER P/GAB. MYMAX STORM II 120X120 AZUL. - Produtos desenvolvidos com materiais resistêntes de alta tecnologia. - Produto com garantia contra defeitos de fabricação. - Verifique o modelo de compatibilidade do produto."},
+  
+  { id: "p10", title: "HD Barracuda ", price: 299.00, oldPrice:349.00, rating:4.9,
+    img:"../img/hdbarracuda.jpeg",
+    category:"Seagate",
+    desc:"- Cache: 64 MB. - RPM: 7200. - SATA 6Gb/s. - O HD é compatível com qualquer sistema operacional existente hoje. "},
+  
+  { id: "p11", title: "Nobreak Interativo 120 Volts", price: 879.99, oldPrice:929.90, rating:4.6,
+    img:"../img/nobreakintel.jpeg",
+    category:"Intelbras",
+    desc:"- O ATTIV 1200 VA oferece proteção e autonomia para eletrônicos simples, como TVs, desktops, modems, roteadores, câmeras e DVRs. - Com design moderno e diferenciado, o ATTIV 1200 VA se adequa a ambientes domésticos e corporativos, permitindo uso em posições vertical ou horizontal."},
+
+  { id: "p10", title: "Fonte Nobreak 120V ", price: 155.00, oldPrice: 189.00, rating:4.9,
+    img:"../img/fonteintelnobreak.jpeg",
+    category:"Intelbras",
+    desc:"- Multiuso: Pode ser utilizada em cenários de CFTV, redes, controle de acesso e automação. - Função DC start: Religamento automático da fonte nobreak mesmo na ausência de energia elétrica 1. - Pronto para usar inclui bateria de lítio de 2.500 mAh. - Saída 12 V 1 A com conector P4. - Proteção contra curto-circuito, sobrecarga e sobretensão."},
+  
+  { id: "p10", title: "Kit RAM de 16 GB (2 x 8 GB)", price: 225.60, oldPrice:269.90, rating:4.9,
+    img:"../img/Crucialkitram.jpeg",
+    category:"Crucial",
+    desc:"- Melhore a responsividade do seu sistema, execute aplicativos mais rápido e faça várias tarefas com facilidade. - Garantia de compatibilidade ao usar o scanner de sistema crucial ou a ferramenta Crucial Advisor. - "},
+  ];
 
 /* Estado */
 let state = {
@@ -47,11 +64,6 @@ let state = {
   cart: [],
   selected: null
 };
-
-// se existir API compartilhada, inicializa o cart local a partir dela
-if (typeof getCarrinho === 'function') {
-  try { state.cart = getCarrinho(); } catch (e) { state.cart = []; }
-}
 
 /* DOM refs */
 const grid = document.getElementById('productGrid');
@@ -151,14 +163,11 @@ function selectProduct(id){
 /* adicionar ao carrinho */
 function addToCart(id, qty = 1){
   const prod = state.products.find(x=>x.id===id);
-  if (!prod) return;
-  if (typeof adicionarProduto === 'function'){
-    // passar título como nome, preço como preco e imagem (quando disponível) para a API comum
-    adicionarProduto(prod.id, prod.title || prod.nome || prod.id, prod.price || prod.preco || 0, qty, prod.img || prod.imagem || '');
+  const found = state.cart.find(i=>i.id===id);
+  if(found){
+    found.qty += qty;
   } else {
-    const found = state.cart.find(i=>i.id===id);
-    if(found) found.qty += qty; else state.cart.push({ id:prod.id, title:prod.title, price:prod.price, img:prod.img, qty });
-    try { localStorage.setItem('cart_local', JSON.stringify(state.cart)); } catch(e){}
+    state.cart.push({ id:prod.id, title:prod.title, price:prod.price, img:prod.img, qty });
   }
   updateCartUI();
   showMiniToast(`${prod.title} adicionado ao carrinho`);
@@ -172,27 +181,16 @@ function buyNow(id, qty=1){
 
 /* atualizar UI do carrinho */
 function updateCartUI(){
-  // preferir carrinho compartilhado
-  const shared = (typeof getCarrinho === 'function') ? getCarrinho() : null;
-  const cart = Array.isArray(shared) ? shared : state.cart;
-  const normalize = (item) => ({
-    id: item.id,
-    title: item.title || item.nome || item.id,
-    price: item.price || item.preco || item.valor || 0,
-    img: item.img || item.imagem || '',
-    qty: item.qtd || item.qty || 1
-  });
-
-  const normalized = cart.map(normalize);
-  cartCount.textContent = normalized.reduce((s,i)=>s+i.qty,0);
+  cartCount.textContent = state.cart.reduce((s,i)=>s+i.qty,0);
+  // fill cart modal
   cartItemsDiv.innerHTML = '';
-  if(normalized.length===0){
+  if(state.cart.length===0){
     cartItemsDiv.innerHTML = `<div class="cart-empty">Seu carrinho está vazio.</div>`;
     cartFooter.innerHTML = '';
     return;
   }
   let total = 0;
-  normalized.forEach(item=>{
+  state.cart.forEach(item=>{
     total += item.price * item.qty;
     const div = document.createElement('div');
     div.className = 'cart-item';
@@ -208,8 +206,8 @@ function updateCartUI(){
     `;
     cartItemsDiv.appendChild(div);
     div.querySelector('[data-remove]').addEventListener('click', ()=>{
-      if (typeof removerItem === 'function') removerItem(item.id);
-      else { state.cart = state.cart.filter(c=>c.id!==item.id); updateCartUI(); }
+      state.cart = state.cart.filter(c=>c.id!==item.id);
+      updateCartUI();
     });
   });
   cartFooter.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px">
@@ -219,20 +217,8 @@ function updateCartUI(){
     <button id="checkoutBtn" style="flex:1;padding:10px;border-radius:8px;border:none;background:var(--accent);color:#fff;cursor:pointer">Finalizar compra</button>
     <button id="clearCart" style="padding:10px;border-radius:8px;border:1px solid #eee;background:#fff;cursor:pointer">Limpar</button>
   </div>`;
-  document.getElementById('checkoutBtn').addEventListener('click', ()=>{
-    // garante que o carrinho está no formato esperado por carrinho.js (localStorage 'carrinho')
-    if (typeof getCarrinho !== 'function'){
-      // temos um fallback local 'cart_local' usado quando não há API comum
-      const local = JSON.parse(localStorage.getItem('cart_local') || '[]');
-      if (local && local.length){
-        const normalized = local.map(i => ({ id: i.id, nome: i.title || i.nome || i.id, preco: i.price || i.preco || 0, qtd: i.qty || i.qtd || 1 }));
-        localStorage.setItem('carrinho', JSON.stringify(normalized));
-      }
-    }
-    // navega para a página do carrinho (pasta produtos -> voltar uma pasta)
-    window.location.href = '../carrinho.html';
-  });
-  document.getElementById('clearCart').addEventListener('click', ()=>{ if(typeof limparCarrinho==='function') limparCarrinho(); else { state.cart = []; updateCartUI(); } });
+  document.getElementById('checkoutBtn').addEventListener('click', ()=>{ alert('Checkout simulado. Integrar PSP para finalizar.'); });
+  document.getElementById('clearCart').addEventListener('click', ()=>{ state.cart = []; updateCartUI(); });
 }
 
 /* mini toast */
@@ -278,4 +264,3 @@ document.getElementById('closeCart').addEventListener('click', ()=>{ cartModal.s
 /* inicializa */
 renderGrid(state.products);
 updateCartUI();
-

@@ -53,6 +53,7 @@
           <br>
           <div class="actions">
             <button class="btn" style="background: #7364ec; color: rgba(255, 255, 255, 1);" onclick='addCarrinho(${JSON.stringify(p.id)})'>Adicionar</button>
+            
             <button class="btn" style="background: #7364ec; color: rgba(255, 255, 255, 1);" onclick='comprarAgora(${JSON.stringify(p.id)})'>Comprar</button>
           </div>
         </div>`;
@@ -125,6 +126,25 @@
         salvarCarrinho();
       }
       abrirCarrinho();
+    }
+
+    // Ao clicar em "Comprar" no Index, redireciona para a página de produtos correta
+    // e passa ?open=<titulo> para que a página de produtos abra o painel do item automaticamente.
+    function comprarAgora(id){
+      const prod = produtos.find(p => p.id === id);
+      if(!prod){ return; }
+      // mapeamento categoria -> página (edite aqui se quiser apontar outra página)
+      const mapa = {
+        'notebooks': 'produtos/ProdutosNotebooks&PCs.html',
+        'smartphones': 'produtos/produtosSmartphones.html',
+        'perifericos': 'produtos/produtosPeriféricos.html',
+        'redes': 'produtos/produtosRedes.html',
+        'componentes': 'produtos/produtosComponentes.html',
+        'armazenamento': 'produtos/produtosComponentes.html'
+      };
+      const target = mapa[prod.categoria] || 'produtos/produtosComponentes.html';
+      // usar openId (id do produto) é mais robusto que título — edite a URL ?openId=<id> para testar
+      window.location.href = `${target}?openId=${encodeURIComponent(prod.id)}`;
     }
 
     // Não sobrescrever implementações globais fornecidas por `carrinho.js`.

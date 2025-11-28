@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loja Tech</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>🛒 Loja Tech</h1>
+    <a href="carrinho.html" class="btn-carrinho">
+      Carrinho (<span id="cart-count">0</span>)
+    </a>
+  </header>
+
+  <main class="produtos">
+    <div class="produto">
+      <img src="https://via.placeholder.com/150" alt="Notebook">
+      <h2>Notebook Gamer</h2>
+      <p>R$ 5.499,00</p>
+      <button onclick="adicionarProduto(1, 'Notebook Gamer', 5499.00)">Adicionar</button>
+    </div>
+
+    <div class="produto">
+      <img src="https://via.placeholder.com/150" alt="Mouse">
+      <h2>Mouse Logitech G Pro</h2>
+      <p>R$ 349,00</p>
+      <button onclick="adicionarProduto(2, 'Mouse Logitech G Pro', 349.00)">Adicionar</button>
+    </div>
+
+    <div class="produto">
+      <img src="https://via.placeholder.com/150" alt="Headset">
+      <h2>Headset HyperX Cloud II</h2>
+      <p>R$ 799,00</p>
+      <button onclick="adicionarProduto(3, 'Headset HyperX Cloud II', 799.00)">Adicionar</button>
+    </div>
+  </main>
+
+  <script src="carrinho.js"></script>
+</body>
+</html>
